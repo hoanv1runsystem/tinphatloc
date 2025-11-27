@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Gạch Phú Mỹ</title>
+	<link th:href="@{/img/favicon.ico}" rel="icon">
+	<div th:replace="fragments/admin-header :: admin-header-css" />
+</head>
+
+<body>
+	<div class="container-scroller">
+		<div th:replace="fragments/admin-header :: admin-header" />
+		<div class="container-fluid page-body-wrapper">
+			<div th:replace="fragments/admin-header :: admin-change-background" />
+			<div th:replace="fragments/admin-header :: admin-menu" />
+			<div class="main-panel">
+				<div class="content-wrapper">
+					<div class="row">
+
+						<div class="col-md-12 col-lg-12 col-sm-12 grid-margin stretch-card">
+							<div class="card">
+								<div class="card-body">
+									<h4 class="card-title">Cập Nhật Sản Phẩm</h4>
+									<div th:if="${message}">
+										<span class="text-danger" th:text=" ${message}"></span>
+									</div>
+									<form class="forms-sample" th:object="${product}"
+										th:action="@{/admin/product/update}" method="post"
+										enctype="multipart/form-data">
+										<div class="form-group">
+											<label for="exampleInputUsername1">Mã sản phẩm</label>
+											<input type="hidden" th:field="*{id}">
+											<input type="text" class="form-control" th:field="*{productCode}"
+												placeholder="Nhập tên công ty">
+											<small id="productCodeValid" class="form-text text-danger invalid-feedback">
+												Nhập mã sản phẩm
+											</small>
+
+										</div>
+										<div class="form-group">
+											<label for="exampleInputUsername1">Tên sản phẩm</label>
+											<input type="text" class="form-control" th:field="*{name}"
+												placeholder="Nhập tên sản phẩm">
+										</div>
+
+										<div class="form-group">
+											<div>Chọn danh mục sản phẩm</div>
+											<select th:field="*{categoryId}" id="categoryId" class="form-select">
+												<option th:each="obj : ${product.categories}" th:value="${obj.id}"
+													th:text="${obj.name}"></option>
+											</select>
+										</div>
+										<div class="form-group">
+											<label for="exampleInputUsername1">Giá sản phẩm</label>
+											<input type="text" class="form-control" th:field="*{price}"
+												placeholder="Nhập giá">
+										</div>
+										<div class="form-group">
+											<label for="exampleInputUsername1">Đơn vị tính đơn giá (vnđ/viên or vnđ)</label>
+											<input type="text" class="form-control" th:field="*{priceUnit}"
+												placeholder="Nhập đơn vị tính giá">
+										</div>
+										<div class="form-group">
+											<label for="exampleInputUsername1">Số lượng</label>
+											<input type="text" class="form-control" th:field="*{amount}"
+												placeholder="Nhập số lượng">
+										</div>
+										<div class="form-group">
+											<label for="exampleInputUsername1">Hình ảnh</label>
+											<input type="hidden" th:field="*{image}">
+											<input type="file" class="form-control" th:field="*{imageProduct}"
+												placeholder="Chọn đường dẫn"
+												accept="image/png, image/jpeg, , image/jpg">
+										</div>
+										<div class="form-group">
+											<label for="exampleInputUsername1">Nguyên vật liệu</label>
+											<input type="text" class="form-control" th:field="*{ingredient}"
+												placeholder="Nhập nguyên vật liệu">
+										</div>
+										<div class="form-group">
+											<label for="exampleInputUsername1">Tiêu chuẩn</label>
+											<input type="text" class="form-control" th:field="*{standard}"
+												placeholder="Nhập tiêu chuẩn">
+										</div>
+										<div class="form-group">
+											<label for="exampleInputUsername1">Thông số kỹ thuật</label>
+											<input type="text" class="form-control" th:field="*{specifications}"
+												placeholder="Nhập thông số kỹ thuật">
+										</div>
+										<div class="form-group">
+											<label for="exampleInputUsername1">Kích thước (chiều dài - chiều rộng -chiều
+												cao: 20 X 30 X 50)</label>
+											<input type="text" class="form-control" th:field="*{size}"
+												placeholder="Nhập kích thước">
+										</div>
+										<div class="form-group">
+											<label for="exampleInputUsername1">Đơn vị tính kích thước</label>
+											<input type="text" class="form-control" th:field="*{sizeUnit}"
+												placeholder="Nhập đơn vị (m, cm, mm)">
+										</div>
+										<div class="form-group">
+											<label for="exampleInputUsername1">Trọng lượng</label>
+											<input type="text" class="form-control" th:field="*{weight}"
+												placeholder="Nhập trọng lượng">
+										</div>
+										<div class="form-group">
+											<label for="exampleInputUsername1">Đợn vị tính trọng lượng</label>
+											<input type="text" class="form-control" th:field="*{weightUnit}"
+												placeholder="Nhập trọng lượng (gr, kg, ...)">
+										</div>
+										<div class="form-group">
+											<label for="exampleInputUsername1">Mô tả</label>
+											<textarea class="form-control" rows="8" id="description1" placeholder="Mô tả sản phẩm" th:field="*{description1}"></textarea>
+										</div>
+										<button type="submit" class="btn btn-success me-2">Lưu</button>
+										<a class="btn btn-info me-2" th:href="@{/admin/product}">Hủy</a>
+										<a class="btn btn-success me-2" th:href="@{/admin}">Quay lại trang quản trị</a>
+									</form>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div th:replace="fragments/admin-footer :: admin-footer" />
+			</div>
+		</div>
+	</div>
+	<div th:replace="fragments/admin-footer :: admin-footer-js" />
+</body>
+
+</html>
+<script type="text/javascript" language="javascript">
+	$( document ).ready(function() {
+	    console.log( "ready!" );
+	    CKEDITOR.replace('description1', {});
+	});
+	function validate() {
+		$("#productCodeValid").show();
+	}
+</script>
+<script type="text/javascript" language="javascript">
+	$(document).ready(function () {
+		$("input").blur(validate());
+	}); 
+</script>

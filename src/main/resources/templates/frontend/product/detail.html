@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<div th:replace="fragments/header :: header-css" />
+</head>
+
+<body>
+
+	<div th:replace="fragments/header :: header" />
+
+	<div class="container-fluid pb-5">
+		<div class="row px-xl-5">
+			<div class="col-lg-5 mb-30">
+				<div id="product-carousel" class="carousel slide" data-ride="carousel">
+					<div class="carousel-inner bg-light">
+						<div class="carousel-item active">
+							<img class="w-100 h-100" th:src="${product.image}" alt="Image">
+						</div>
+					</div>
+					<a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
+						<i class="fa fa-2x fa-angle-left text-dark"></i>
+					</a>
+					<a class="carousel-control-next" href="#product-carousel" data-slide="next">
+						<i class="fa fa-2x fa-angle-right text-dark"></i>
+					</a>
+				</div>
+			</div>
+
+			<div class="col-lg-7 h-auto mb-30" th:object="${product}">
+				<div class="h-100 bg-light p-30">
+					<p th:if="${product.price != null}" class="font-weight-semi-bold mb-4 text-danger">Giá bán: <span
+							th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}">4.000<span
+								th:text="*{priceUnit}">Gạch không nung loại 1</span></p>
+					<p th:if="${product.price == null}" class="font-weight-semi-bold mb-4"><span class="text-danger">Giá
+							bán: Liên hệ</span></p>
+					<p>Tên sản phẩm: <span th:text="*{name}">Gạch không nung loại 1</span></p>
+					<p>Mã sản phẩm: <span th:text="*{productCode}"></span></p>
+					<p>Tình trạng: Còn hàng</p>
+					<div class="d-flex align-items-center mb-4 pt-2">
+						<button class="btn btn-dark px-3">
+							<i class="fa fa-phone-alt text-primary mr-3"></i></i>
+							Gọi cho chúng tôi để biết chi tiết về giá và sản phẩm:
+							<a th:text="${session.contactSession.phone}" style="color: #FFD333 ;"
+								th:href="${'tel:'+ session.contactSession.phone}"> 0978 414 433</a>
+						</button>
+					</div>
+					<h6 class="font-weight-semi-bold mb-4">Thông tin sản phẩm</h6>
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th style="width: 30%;">Nguyên Liệu</th>
+								<td style="width: 70%;" th:text="*{ingredient}">Đá xay, bột đá, xi măng, phụ gia</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<tr>
+								<th>Tiêu chuẩn</th>
+								<td th:text="*{standard}">ISO 9001</td>
+							</tr>
+							<tr>
+								<th>Thông số kỹ Thuật</th>
+								<td th:text="*{specifications}">Cườn độ chị nén 55</td>
+
+							</tr>
+							<tr>
+								<th>Kích thức</th>
+								<td th:text="*{size}">200 x 10 x 30</td>
+							</tr>
+							<tr>
+								<th>Trọng lượng</th>
+								<td th:text="*{weight}">2.0 kg/viên</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="row px-xl-5">
+			<div class="col">
+				<div class="bg-light p-30">
+					<div class="nav nav-tabs mb-4">
+						<a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Giới thiệu:
+							<span th:text="${product.name}"></span></a>
+					</div>
+					<div class="tab-content">
+						<div class="tab-pane fade show active" id="tab-pane-1">
+							<p th:utext="${product.description1}">
+								<p />
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid py-5">
+		<h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Sản Phẩm
+				Khác</span></h2>
+		<div class="row px-xl-5">
+			<div class="col">
+				<div class="owl-carousel related-carousel">
+					<div class="product-item bg-light" th:each="prod : ${products}">
+						<div class="product-img position-relative overflow-hidden">
+							<a th:href="@{/product/{id}/{name}(id=${prod.id}, name=${prod.urlFriendy})}">
+								<img class="img-fluid w-100" th:src="${prod.image}" alt="" style="height: 326px">
+							</a>
+						</div>
+						<div class="text-center py-4">
+							<a class="h6 text-decoration-none text-truncate"
+								th:href="@{/product/{id}/{name}(id=${prod.id}, name=${prod.urlFriendy})}">
+								<span th:text="${prod.name}"></span>
+							</a>
+							<div class="d-flex align-items-center justify-content-center mt-2">
+								<h6>
+									<span>Mã sản phẩm: </span> <span th:text="${prod.productCode}"></span>
+								</h6>
+							</div>
+							<div class="d-flex align-items-center justify-content-center mt-2">
+								<h6 th:if="${product.price != null}">
+									<span class="text-danger">Giá bán: </span> <span class="text-danger"
+										th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}">5.000</span>
+									<span th:text="${prod.priceUnit}">vnđ/Viên</span>
+								</h6>
+								<h6 th:if="${product.price == null}">
+									<span>Giá bán: Liên hệ</span>
+									</h5>
+							</div>
+							<div class="d-flex align-items-center justify-content-center mb-1">
+								<button class="btn btn-primary px-3">
+									<span class="black-color">Liên hệ mua hàng: </span>
+									<a class="black-color" th:text="${session.contactSession.phone}"
+										th:href="${'tel:'+ session.contactSession.phone}"> 0978 414 433</a>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:replace="fragments/footer :: footer" />
+	<div th:replace="fragments/footer :: footer-js" />
+</body>
+
+</html>

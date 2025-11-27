@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Gạch Phú Mỹ</title>
+	<div th:replace="fragments/admin-header :: admin-header-css" />
+</head>
+
+<body>
+	<div class="container-scroller">
+		<div th:replace="fragments/admin-header :: admin-header" />
+		<div class="container-fluid page-body-wrapper">
+			<div th:replace="fragments/admin-header :: admin-change-background" />
+			<div th:replace="fragments/admin-header :: admin-menu" />
+			<div class="main-panel">
+				<div class="content-wrapper">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="col-lg-12 stretch-card">
+								<div class="card">
+									<div class="card-body">
+										<div class="table-responsive pt-3">
+											<div class="row">
+												<h4 class="col-lg-2 col-md-2 col-sm-2">Danh Sách Khách Hàng</h4>
+												<h4 class="col-lg-8 col-md-8 col-sm-8">
+													<div th:if="${successMessage}">
+														<span class="text-success" th:text=" ${successMessage}"></span>
+													</div>
+												</h4>
+												<h4 class="col-lg-2 col-md-2 col-sm-2 text-center">
+													<a th:href="@{/admin/customer/add}" class="btn btn-primary">Thêm
+														Mới</a>
+												</h4>
+											</div>
+											<table class="table table-bordered table-striped">
+												<thead>
+													<tr>
+														<th style="width: 5%; text-align: center">
+															STT
+														</th>
+														<th style="width: 10%; text-align: center">
+															Tên khách hàng
+														</th>
+
+														<th style="width: 10%; text-align: center;">
+															Điện thoại
+														</th>
+
+														<th style="width: 10%; text-align: center;">
+															Email
+														</th>
+														<th style="width: 10%; text-align: center;">
+															Nội dung
+														</th>
+														<th style="width: 10%; text-align: center;">
+															Địa chỉ
+														</th>
+														<th style="width: 10%; text-align: center;">
+															Trạng thái
+														</th>
+														<th style="width: 10%; text-align: center">
+															Chức Năng
+														</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr th:each="customer, state : ${customers.customers}">
+														<td th:text="${state.index + 1}" class="text-center">
+															1
+														</td>
+														<td th:text="${customer.name}" class="text-center">
+														</td>
+														<td th:text="${customer.phone}">
+														</td>
+														<td th:text="${customer.email}">
+														</td>
+														<td th:utext="${customer.message}"> 
+														</td>
+														<td th:text="${customer.address}">
+														</td>
+														<td th:text="${customer.status}">
+														</td>
+														<td>
+															<a th:href="@{/admin/customer/update/{id}(id=${customer.id})}"
+																class="btn btn-primary btn-sm">Sửa</a>
+															<a th:href="@{/admin/customer/delete/{id}(id=${customer.id})}"
+																class="btn btn-danger btn-sm" th:onclick="return onClickDelete(this)">Xóa </a>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div th:replace="fragments/admin-footer :: admin-footer" />
+			</div>
+		</div>
+	</div>
+	<div th:replace="fragments/admin-footer :: admin-footer-js" />
+
+	
+	</script>
+</body>
+
+</html>

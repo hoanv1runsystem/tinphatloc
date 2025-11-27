@@ -1,0 +1,146 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+>
+<!--<!DOCTYPE html>-->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Tín Phát Lộc</title>
+    <link th:href="@{/img/favicon.ico}" rel="icon">
+    <div th:replace="fragments/admin-header :: admin-header-css"/>
+</head>
+
+<body>
+<div class="container-scroller">
+    <div th:replace="fragments/admin-header :: admin-header"/>
+    <div class="container-fluid page-body-wrapper">
+        <div th:replace="fragments/admin-header :: admin-change-background"/>
+        <div th:replace="fragments/admin-header :: admin-menu"/>
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+
+                    <div class="col-md-6 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Cập Nhật Nhân Viên</h4>
+                                <div th:if="${message}">
+                                    <span class="text-danger" th:text=" ${message}"></span>
+                                </div>
+
+                                <form class="forms-sample" th:object="${chiPhi}"
+                                      th:action="@{/admin/chiPhi/update}" method="post">
+                                    <div class="form-group">
+                                        <input type="hidden" th:field="*{id}">
+                                        <label>Ngày Chứng Từ</label>
+                                        <input type="text" id="ngayChungTu" class="form-control formateDate" th:field="*{ngayChungTu}"
+                                               required placeholder="Nhập Ngày Chứng Từ"
+                                               title="Ngày Chứng Từ không được để trống">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Số Phiếu</label>
+                                        <input type="text" id="soPhieu" class="form-control" th:field="*{soPhieu}"
+                                               placeholder="Nhập Số Phiếu"
+                                               title="Số Phiếu không được trống hoặc chứa kí tự đặc biệt">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Mã Thiết Bị</label>
+                                        <select th:field="*{maThietBi}" id="maThietBi" class="form-select">
+                                            <option th:each="obj : ${chiPhi.thietBis}" th:value="${obj.maThietBi}"
+                                                    th:text="${obj.tenThietBi}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Diễn Giải</label>
+                                        <input type="text" id="moTa" class="form-control" th:field="*{moTa}"
+                                               placeholder="Nhập Diễn Giải">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Mã Hàng</label>
+                                        <input type="text" id="mahang" class="form-control" th:field="*{mahang}"
+                                               placeholder="Nhập Mã Hàng">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Tên Hàng</label>
+                                        <input type="text" id="tenHang" class="form-control" th:field="*{tenHang}"
+                                               placeholder="Nhập note">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Đơn Vị Tính</label>
+                                        <input type="text" id="dvt" class="form-control" th:field="*{dvt}"
+                                               placeholder="Nhập Đơn Vị Tính">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Số Lượng</label>
+                                        <input type="text" id="soLuong" class="form-control" th:field="*{soLuong}"
+                                               placeholder="Nhập Đơn Vị Tính">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Đơn Giá</label>
+                                        <input type="text" id="donGia" class="form-control" th:field="*{donGia}"
+                                               placeholder="Nhập Đơn Giá">
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label>Mã Nhà Cung Cấp</label>
+                                        <input type="text" id="maNcc" class="form-control" th:field="*{maNcc}"
+                                               placeholder="Nhập Mã Nhà Cung Cấp">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Tên Nhà Cung Cấp</label>
+                                        <input type="text" id="tenNcc" class="form-control" th:field="*{tenNcc}"
+                                               placeholder="Nhập Tên Nhà Cung Cấp">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Mã Nhân Viên</label>
+                                        <select th:field="*{maNhanVien}" id="maNhanVien" class="form-select">
+                                            <option th:each="obj : ${chiPhi.nhanViens}" th:value="${obj.maNhanVien}"
+                                                    th:text="${obj.tenNhanVien}"></option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Mã Công Trình</label>
+                                        <select th:field="*{maCongTrinh}" id="maCongTrinh" class="form-select">
+                                            <option th:each="obj : ${chiPhi.congTrinhs}" th:value="${obj.maCongTrinh}"
+                                                    th:text="${obj.tenCongTrinh}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Note</label>
+                                        <input type="text" id="note" class="form-control" th:field="*{note}"
+                                               placeholder="Nhập Note">
+                                    </div>
+                                    <button type="submit" class="btn btn-success me-2">Lưu</button>
+                                    <a class="btn btn-info me-2" th:href="@{/admin/chiPhi}">Hủy</a>
+                                    <a class="btn btn-success me-2" th:href="@{/admin}">Quay lại trang quản trị</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:replace="fragments/admin-footer :: admin-footer"/>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/admin-footer :: admin-footer-js"/>
+<script>
+    $( document ).ready(function() {
+        console.log( "ready!" );
+        CKEDITOR.replace('message', {});
+    });
+	flatpickr($('.formateDate'), {
+        dateFormat: "d/m/Y",     // định dạng hiển thị dd/MM/yyyy
+        locale: "vn",            // dùng ngôn ngữ tiếng Việt
+        allowInput: true         // cho phép gõ tay
+    });
+</script>
+</body>
+
+</html>

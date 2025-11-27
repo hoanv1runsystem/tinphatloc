@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<div th:replace="fragments/header :: header-css" />
+</head>
+
+<body>
+
+	<div th:replace="fragments/header :: header" />
+	<div class="container-fluid">
+		<div class="row px-xl-5">
+			<div class="col">
+				<div class="bg-light p-30">
+					<div class="nav nav-tabs mb-4">
+
+						<a th:if="${introduce}" class="nav-item nav-link text-dark active" data-toggle="tab"
+							href="#tab-pane-1" th:text="${introduce.nameTab}">Giới Thiệu
+							Công Ty</a>
+						<a th:if="${history}" class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-2"
+							th:text="${history.nameTab}">Lịch sử</a>
+						<a th:if="${vision}" class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3"
+							th:text="${vision.nameTab}">Tầm Nhìn</a>
+					</div>
+					<div class="tab-content">
+						<div class="tab-pane fade show active" id="tab-pane-1" th:if="${introduce}">
+							<h4 class="mb-3" th:text="${introduce.title}">Công Ty Cổ Phần Đầu Tư Gạch Phú Mỹ</h4>
+							<p th:utext="${introduce.decription}">
+								Công Ty Cổ Phần Đầu Tư Gạch Phú Mỹ – chuyên cung cấp các loại gạch lát vỉa hè chất 
+								lượng cao !
+
+								Gạch lát vỉa hè là loại gạch không nung có tính năng chịu lực và thời tiết khắc nghiệt.
+
+								 Do khi lát không cần phải trám mạch cho nước có thể thoát qua các khe mạch. Gạch lát
+								vỉa hè bao gồm các loại gạch như là: gạch Terrazzo vỉa hè, gạch block tự chèn, gạch
+								trồng cỏ, gạch lát vỉa hè giả đá Coric, gạch con sâu, gạch tự chèn lục giác – bát giác,
+								gạch chữ nhật…
+
+								 Công Ty Cổ Phần Đầu Tư Gạch Phú Mỹ là đơn vị chuyên sản xuất và phân phối các
+								loại gạch lát vỉa hè, bó vỉa, đan rãnh hè chất lượng cao.
+
+								Quản Lý Chất Lượng Và Dịch Vụ Của Công Ty Cổ Phần Đầu Tư Gạch Phú Mỹ
+
+								 Với tiêu chí lấy chất lượng làm thế mạnh kinh doanh, chúng tôi đã và đang áp dụng
+								chặt chẻ hệ thống quản lý chất lượng thông qua quy trình Lean Manufacturing và 5S.
+
+								Chúng tôi luôn cam kết nổ lực hết mình để đem lại sản phẩm Terrazzo chất lượng cao,
+								ổn định đáp ứng tiêu chuẩn TCVN 7744:2007.
+
+								 Giá Thành Cạnh Tranh – Sự kinh doanh thành công của đối tách luôn là tiêu chí hàng đầu
+								của Gạch Terrazzo như trong slogan của công ty “Nhà Phân Phối Gạch Chuyên Nghiệp” .
+
+								Chúng tôi luôn cải tiến không ngừng về công nghệ, chất lượng và nguyên vật liệu để
+								đem lại sản phẩm giá trị cao và cạnh tranh nhất.
+
+								Khách Hàng Là Tài Sản Chiến Lược – Chúng tôi luôn lắng nghe khách hàng, đối tác và
+								tìm cách đáp ứng mọi nhu cầu về sản phảm, chất lượng, giá cả và giao hàng
+
+								Lý do bạn nên mua gạch lát vỉa hè Công Ty Cổ Phần Đầu Tư Gạch Phú Mỹ
+							</p>
+						</div>
+						<div class="tab-pane fade" id="tab-pane-2" th:if="${history}">
+							<h4 class="mb-3" th:text="${history.title}">Lịch sử</h4>
+							<p th:utext="${history.decription}">
+								Công Ty Cổ Phần Đầu Tư Gạch Phú Mỹ có kinh nghiệm lĩnh vực kinh doanh và sản xuất vật
+								liệu xây dựng, đặc biệt là gạch lát vỉa hè sân vườn như là gạch Terrazzo, gạch block
+								tự chèn, gạch con sâu và gạch trồng cỏ. Để đáp ứng nhu cầu thị trường ngày một tăng cao,
+								năm 2007 chúng tôi đã đầu tư vào dây chuyền sản xuất gạch Terrazzo tiên tiến nhất và từ
+								đó đến nay chúng tôi không ngừng cải tiến công nghệ và nâng năng xuất lên 15
+								triệu  viên/năm.
+							</p>
+						</div>
+						<div class="tab-pane fade" id="tab-pane-3" th:if="${vision}">
+							<h4 class="mb-3" th:text="${vision.title}">TẦM NHÌN, SỨ MỆNH VÀ GIÁ TRỊ CỐT LÕI</h4>
+							<p th:utext="${vision.decription}">
+								Xây dựng Công Ty Cổ Phần Đầu Tư Gạch Phú Mỹ trở thành doanh nghiệp mạnh và chuyên
+								nghiệp trong lĩnh vực sản xuất vậtliệu xây dựng, khẳng định vị thế trên thị trường trong
+								nước.
+								SỨ MỆNH:
+								Đối với khách hàng: Tôn trọng và cam kết mang đến cho khách hàng những sản phẩm và dịch
+								vụ tốt nhất.
+								Đối với đối tác: Xây dựng mối quan hệ tin cậy, uy tín, hợp tác cùng phát triển bền vững.
+								Đối với nhân viên: Xây dựng môi trường làm việc thân thiện, chuyên nghiệp, năng động,
+								sáng tạo để mọi người có thể phát huy hết khả năng của mình
+								Đối với xã hội: Luôn ý thức lợi ích của Cholimex gắn liền với lợi ích xã hội và những
+								hoạt động đóng góp cho xã hội là một phần trách nhiệm của Cholimex đối với cộng đồng.
+								GIÁ TRỊ CỐT LÕI:
+								Xem tinh thần sáng tạo là nền tảng cho sự phát triển
+								Xem con người là tài sản của Công ty, là nhân tố tạo nên sự thành công
+								Xem tinh thần đồng đội, sự trung thực là phương châm hành động
+								Xem sự khác biệt, đột phá là lợi thế cạnh tranh
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div th:replace="fragments/footer :: footer" />
+	<div th:replace="fragments/footer :: footer-js" />
+</body>
+
+</html>

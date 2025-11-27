@@ -1,0 +1,53 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Gạch Phú Mỹ</title>
+	<link rel="shortcut icon" href="../admin/images/logo-admin.svg" />
+	<link th:href="@{../img/favicon.ico}" rel="icon">
+	<div th:replace="fragments/admin-header :: admin-header-css" />
+</head>
+
+<body>
+	<div class="container-scroller">
+		<div th:replace="fragments/admin-header :: admin-header" />
+		<div class="container-fluid page-body-wrapper">
+			<div th:replace="fragments/admin-header :: admin-change-background" />
+			<div th:replace="fragments/admin-header :: admin-menu" />
+			<div class="main-panel">
+				<div class="content-wrapper">
+					<div class="row">
+
+						<div class="col-md-6 grid-margin stretch-card">
+							<div class="card">
+								<div class="card-body">
+									<h4 class="card-title">Cập Nhật Danh Mục</h4>
+									<form class="forms-sample" th:object="${categoryDto}"
+										th:action="@{/admin/category/update}" method="post">
+										<div class="form-group">
+											<label for="exampleInputUsername1">Tên Danh mục</label>
+											<input type="hidden" th:field="*{id}" />
+											<input type="text" class="form-control" th:field="*{name}" id="name"
+												placeholder="Nhập Tên Danh mục">
+
+										</div>
+										<button type="submit" class="btn btn-success me-2">Lưu</button>
+										<a class="btn btn-info me-2" th:href="@{/admin/category}">Hủy</a>
+										<a class="btn btn-success me-2" th:href="@{/admin}">Quay lại trang quản trị</a>
+									</form>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div th:replace="fragments/admin-footer :: admin-footer" />
+			</div>
+		</div>
+	</div>
+	<div th:replace="fragments/admin-footer :: admin-footer-js" />
+</body>
+
+</html>

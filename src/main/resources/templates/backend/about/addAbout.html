@@ -1,0 +1,79 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Gạch Phú Mỹ</title>
+	<link th:href="@{/img/favicon.ico}" rel="icon">
+	<div th:replace="fragments/admin-header :: admin-header-css" />
+</head>
+
+<body>
+	<div class="container-scroller">
+		<div th:replace="fragments/admin-header :: admin-header" />
+		<div class="container-fluid page-body-wrapper">
+			<div th:replace="fragments/admin-header :: admin-change-background" />
+			<div th:replace="fragments/admin-header :: admin-menu" />
+			<div class="main-panel">
+				<div class="content-wrapper">
+					<div class="row">
+
+						<div class="col-md-6 grid-margin stretch-card">
+							<div class="card">
+								<div class="card-body">
+									<h4 th:if="${about.id == null}" class=" card-title">Thêm Mới Về Chúng Tôi
+									</h4>
+									<h4 th:if="${about.id != null}" class=" card-title">Cập nhật Về Chúng Tôi
+									</h4>
+									<form class="forms-sample" th:object="${about}" th:action="@{/admin/about/add}"
+										method="post">
+										<div class="form-group">
+											<label for="exampleInputUsername1">Tiêu đề tab</label>
+											<input type="hidden" th:field="*{id}">
+											<input type="text" class="form-control" th:field="*{nameTab}"
+												placeholder="Nhập tên tab">
+
+										</div>
+										<div class="form-group">
+											<label for="exampleInputUsername1">Tiêu đề</label>
+											<input type="text" class="form-control" th:field="*{title}"
+												placeholder="Nhập tiêu đề">
+										</div>
+										<div class="form-group">
+											<div>Vị trí hiển thị trên tab</div>
+											<select th:field="*{position}" id="position" class="form-select">
+												<option th:each="obj : ${about.selectPositions}" th:value="${obj.key}"
+													th:text="${obj.value}"></option>
+											</select>
+										</div>
+										<div class="form-group">
+											<label>Nội dung</label>
+											<textarea class="form-control" rows="8" id="decription"
+												placeholder="Nội dung" th:field="*{decription}"></textarea>
+										</div>
+										<button type="submit" class="btn btn-success me-2">Lưu</button>
+										<a class="btn btn-info me-2" th:href="@{/admin/about}">Hủy</a>
+										<a class="btn btn-success me-2" th:href="@{/admin}">Quay lại trang quản trị</a>
+									</form>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div th:replace="fragments/admin-footer :: admin-footer" />
+			</div>
+		</div>
+	</div>
+	<div th:replace="fragments/admin-footer :: admin-footer-js" />
+	<script>
+		$(document).ready(function () {
+			console.log("ready!");
+			CKEDITOR.replace('decription', {});
+		});
+
+	</script>
+</body>
+
+</html>

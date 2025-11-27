@@ -1,0 +1,19 @@
+span.active{
+  color: #FFD333 !important;
+}
+
+a {
+	text-decoration: none !important;
+}
+
+a.black-color, span.black-color{
+	color: #6C757D !important;
+}
+
+a.while-color, span.while-color{
+	color: #F5F5F5 !important;
+}
+
+a.red-color, span.red-color{
+	color: #F5F5F5 !important;
+}

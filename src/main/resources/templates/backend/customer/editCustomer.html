@@ -1,0 +1,86 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<!--<!DOCTYPE html>-->
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Gạch Phú Mỹ</title>
+	<link th:href="@{/img/favicon.ico}" rel="icon">
+	<div th:replace="fragments/admin-header :: admin-header-css" />
+</head>
+
+<body>
+	<div class="container-scroller">
+		<div th:replace="fragments/admin-header :: admin-header" />
+		<div class="container-fluid page-body-wrapper">
+			<div th:replace="fragments/admin-header :: admin-change-background" />
+			<div th:replace="fragments/admin-header :: admin-menu" />
+			<div class="main-panel">
+				<div class="content-wrapper">
+					<div class="row">
+
+						<div class="col-md-6 grid-margin stretch-card">
+							<div class="card">
+								<div class="card-body">
+									<h4 class="card-title">Cập Nhật Khách Hàng</h4>
+									<div th:if="${message}">
+										<span class="text-danger" th:text=" ${message}"></span>
+									</div>
+									<form class="forms-sample" th:object="${customer}"
+										th:action="@{/admin/customer/update}" method="post">
+										<div class="form-group">
+											<label for="exampleInputUsername1">Tên khách hàng</label>
+											<input type="hidden" th:field="*{id}">
+											<input type="text" id="name" class="form-control" th:field="*{name}"
+												required placeholder="Nhập Tên Danh mục"
+												title="Tên không được trống hoặc chứa kí tự đặc biệt">
+										</div>
+										<div class="form-group">
+											<label for="exampleInputUsername1">Số điện thoại</label>
+											<input type="text" id="phone" class="form-control" th:field="*{phone}"
+												pattern="[0-9]{0,10}" required placeholder="Nhập số điện thoại"
+												title="Số điện thoại không được trống">
+										</div>
+										<div class="form-group">
+											<label>Email</label>
+											<input type="email" id="email" class="form-control" th:field="*{email}"
+												placeholder="Nhập email">
+										</div>
+										<div class="form-group">
+											<label>Địa chỉ</label>
+											<input type="text" id="address" class="form-control" th:field="*{address}"
+												placeholder="Nhập địa chỉ">
+										</div>
+										<div class="control-group">
+											<textarea class="form-control" rows="8" id="message" placeholder="Nội dung" th:field="*{message}"></textarea>
+										</div>
+										<div class="form-group">
+											<label>Trạng thái</label>
+											<input type="text" id="status" class="form-control" th:field="*{status}"
+												placeholder="Nhập trạng thái">
+										</div>
+										<button type="submit" class="btn btn-success me-2">Lưu</button>
+										<a class="btn btn-info me-2" th:href="@{/admin/customer}">Hủy</a>
+										<a class="btn btn-success me-2" th:href="@{/admin}">Quay lại trang quản trị</a>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div th:replace="fragments/admin-footer :: admin-footer" />
+			</div>
+		</div>
+	</div>
+	<div th:replace="fragments/admin-footer :: admin-footer-js" />
+	<script>
+	$( document ).ready(function() {
+	    console.log( "ready!" );
+	    CKEDITOR.replace('message', {});
+	});
+	
+	</script>
+</body>
+
+</html>

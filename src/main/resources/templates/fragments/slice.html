@@ -1,0 +1,87 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+</head>
+
+<body>
+	<div th:fragment="slice">
+		<!-- Carousel Start -->
+		<div class="container-fluid mb-3">
+			<div class="row px-xl-5">
+				<div class="col-lg-8">
+					<div id="header-carousel" class="carousel slide carousel-fade mb-30 mb-lg-0" data-ride="carousel">
+						<ol class="carousel-indicators">
+							<li data-target="#header-carousel" data-slide-to="0" class="active"></li>
+							<li data-target="#header-carousel" data-slide-to="1"></li>
+							<li data-target="#header-carousel" data-slide-to="2"></li>
+						</ol>
+						<div class="carousel-inner">
+							<th:block th:each="slice, state : ${#session.getAttribute('sliceSession')}">
+								<div th:if="${state.index == 0}" class="carousel-item position-relative active"
+									style="height: 430px;">
+									<img class="position-absolute w-100 h-100" th:src="@{${slice.image}}"
+										style="object-fit: cover;">
+
+									<div
+										class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+										<div class="p-3" style="max-width: 700px;">
+											<h2 class="display-4 text-white mb-3 animate__animated animate__fadeInDown"
+												th:text="${slice.title}">Tín Phát Lộc</h2>
+											<p class="mx-md-5 px-5 animate__animated animate__bounceIn"
+												th:text="${slice.description}">Xây Vững niềm tin -
+												Dựng uy tín vàng</p>
+											<a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"
+												th:href="@{/product}">Xem sản phẩm</a>
+										</div>
+									</div>
+								</div>
+								<div th:if="${state.index != 0}" class="carousel-item position-relative"
+									style="height: 430px;">
+									<img class="position-absolute w-100 h-100" th:src="@{${slice.image}}"
+										style="object-fit: cover;">
+									<div
+										class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+										<div class="p-3" style="max-width: 700px;">
+											<h2 class="display-4 text-white mb-3 animate__animated animate__fadeInDown"
+												th:text="${slice.title}">Tín Phát Lộc</h2>
+											<p class="mx-md-5 px-5 animate__animated animate__bounceIn"
+												th:text="${slice.description}">Xây Vững niềm tin -
+												Dựng uy tín vàng</p>
+											<a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"
+												th:href="@{/product}">Xem sản phẩm</a>
+										</div>
+									</div>
+								</div>
+							</th:block>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="product-offer mb-30" style="height: 200px;">
+						<img class="img-fluid" th:src="@{${session.sliceSessionAbove.image}}" alt="">
+						<div class="offer-text">
+							<h6 class="text-white text-uppercase" th:text="${session.sliceSessionAbove.title}">Luôn có
+								sẵn số lượng lớn</h6>
+							<h3 class="text-white mb-3" th:text="${session.sliceSessionAbove.description}">Cam kết chiết
+								khấu cao nhất</h3>
+							<a th:href="@{/product}" class="btn btn-primary">xem sản phẩm</a>
+						</div>
+					</div>
+					<div class="product-offer mb-30" style="height: 200px;">
+						<img class="img-fluid" th:src="@{${session.sliceSessionBelow.image}}" alt="">
+						<div class="offer-text">
+							<h6 class="text-white text-uppercase" th:text="${session.sliceSessionBelow.title}">Tư vấn
+								thi công miễn phí</h6>
+							<h3 class="text-white mb-3" th:text="${session.sliceSessionBelow.description}">Hỗ trợ gọi xe
+								vận chuyển tận nơi</h3>
+							<a th:href="@{/product}" class="btn btn-primary">Sản phẩm</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

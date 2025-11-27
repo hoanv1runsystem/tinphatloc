@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Login </title>
+	<link th:href="@{/img/favicon.ico}" rel="icon">
+	<div th:replace="fragments/header :: header-css" />
+</head>
+
+<body>
+	<div class="container">
+		<div class="row" style="margin-top:20px">
+			<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+				<div class="alert alert-danger" role="alert">
+				  	Đã xảy ra lỗi hệ thống liên hệ với người quản trị !!!
+				</div>
+				<div class="alert alert-success" role="alert">
+				  	<a class="while-color" th:href="@{/}"> Về trang chủ</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

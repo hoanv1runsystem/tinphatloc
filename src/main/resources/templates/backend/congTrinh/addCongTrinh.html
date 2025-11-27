@@ -1,0 +1,163 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+>
+<!--<!DOCTYPE html>-->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Gạch Phú Mỹ</title>
+    <link th:href="@{/img/favicon.ico}" rel="icon">
+    <div th:replace="fragments/admin-header :: admin-header-css"/>
+    <!-- ✅ Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <!-- (Tùy chọn) Giao diện tiếng Việt -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/vn.js"></script>
+</head>
+
+<body>
+<div class="container-scroller">
+    <div th:replace="fragments/admin-header :: admin-header"/>
+    <div class="container-fluid page-body-wrapper">
+        <div th:replace="fragments/admin-header :: admin-change-background"/>
+        <div th:replace="fragments/admin-header :: admin-menu"/>
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+
+                    <div class="col-md-6 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Thêm Công Trình</h4>
+                                <div th:if="${message}">
+                                    <span class="text-danger" th:text=" ${message}"></span>
+                                </div>
+                                <form class="forms-sample" th:object="${congTrinh}"
+                                      th:action="@{/admin/congTrinh/add}" method="post">
+                                    <div class="form-group">
+                                        <label for="exampleInputUsername1">Mã Công Trình</label>
+                                        <input type="text" id="maCongTrinh" class="form-control" th:field="*{maCongTrinh}"
+                                               required placeholder="Nhập Mã"
+                                               title="Mã không được trống hoặc chứa kí tự đặc biệt">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputUsername1">Tên Công trinh</label>
+                                        <input type="text" id="tenCongTrinh" class="form-control" th:field="*{tenCongTrinh}"
+                                               required placeholder="Nhập Tên Công Trình"
+                                               title="Tên không được trống hoặc chứa kí tự đặc biệt">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Khách Hàng</label>
+                                        <select th:field="*{maKhachHang}" id="maKhachHang" class="form-select">
+                                            <option th:each="obj : ${congTrinh.khachHangs}" th:value="${obj.maKhachHang}"
+                                                    th:text="${obj.tenKhachHang}"></option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Mã TK</label>
+                                        <input type="text" id="maTk" class="form-control" th:field="*{maTk}"
+                                               placeholder="Nhập mã TK">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Loại Công Trình</label>
+                                        <input type="text" id="loaiCongTrinh" class="form-control" th:field="*{loaiCongTrinh}"
+                                               placeholder="Nhập Loại Công Trình">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Chọn Tình Trạng</label>
+                                        <input type="text" id="tinhTrang" class="form-control" th:field="*{tinhTrang}"
+                                               placeholder="Nhập Tình Trang">
+                                        <!-- <select th:field="*{tinhTrang}" id="tinhTrang" class="form-select">
+                                             <option th:value="0" th:text="Đang Thi Công"></option>
+                                             <option th:value="1" th:text="Hoàn Thành"></option>
+                                        </select>-->
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label>Ngày Bắt Đầu</label>
+                                        <input type="text" class="form-control formateDate"
+                                               name="ngayBatDau"
+                                               id="ngayBatDau"
+                                               th:field="*{ngayBatDau}"
+                                               th:value="${#temporals.format(congTrinh.ngayBatDau, 'dd/MM/yyyy')}"
+                                               placeholder="dd/mm/yyyy" />
+
+                                        <!--<input type="date" id="ngayBatDau" class="form-control" th:field="*{ngayBatDau}"
+                                               placeholder="Nhập Ngày Bắt Đầu (dd/MM/yyyy)">-->
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Ngày Kết Thúc</label>
+                                        <input type="text" class="form-control formateDate"
+                                               name="ngayKetThuc"
+                                               id="ngayKetThuc"
+                                               th:field="*{ngayKetThuc}"
+                                               th:value="${#temporals.format(congTrinh.ngayKetThuc, 'dd/MM/yyyy')}"
+                                               placeholder="dd/mm/yyyy" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Hạn Thanh Toán</label>
+                                        <input type="text" class="form-control formateDate"
+                                               name="hanThanhToan"
+                                               id="hanThanhToan"
+                                               th:field="*{hanThanhToan}"
+                                               th:value="${#temporals.format(congTrinh.hanThanhToan, 'dd/MM/yyyy')}"
+                                               placeholder="dd/mm/yyyy" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Dự Toán</label>
+                                        <input type="text" id="duToan" class="form-control" th:field="*{duToan}"
+                                               placeholder="Nhập Dự Toán">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Địa chỉ</label>
+                                        <input type="text" id="diaChi" class="form-control" th:field="*{diaChi}"
+                                               placeholder="Nhập địa chỉ">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Chủ Đầu Tư</label>
+                                        <select th:field="*{maChudauTu}" id="maChudauTu" class="form-select">
+                                            <option th:each="obj : ${congTrinh.chuDauTus}" th:value="${obj.maChuDauTu}"
+                                                    th:text="${obj.tenChuDauTu}"></option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Note</label>
+                                        <input type="text" id="note" class="form-control" th:field="*{note}"
+                                               placeholder="Nhập note">
+                                    </div>
+
+                                    <button type="submit" class="btn btn-success me-2">Lưu</button>
+                                    <a class="btn btn-info me-2" th:href="@{/admin/congTrinh}">Hủy</a>
+                                    <a class="btn btn-success me-2" th:href="@{/admin}">Quay lại trang quản trị</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:replace="fragments/admin-footer :: admin-footer"/>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/admin-footer :: admin-footer-js"/>
+
+<script>
+    $( document ).ready(function() {
+        console.log( "ready!" );
+        CKEDITOR.replace('message', {});
+    });
+    flatpickr($('.formateDate'), {
+        dateFormat: "d/m/Y",     // định dạng hiển thị dd/MM/yyyy
+        locale: "vn",            // dùng ngôn ngữ tiếng Việt
+        allowInput: true         // cho phép gõ tay
+    });
+
+</script>
+</body>
+
+</html>

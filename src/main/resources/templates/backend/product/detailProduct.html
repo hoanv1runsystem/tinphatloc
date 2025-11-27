@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Gạch Phú Mỹ</title>
+	<link th:href="@{/img/favicon.ico}" rel="icon">
+	<div th:replace="fragments/admin-header :: admin-header-css" />
+</head>
+
+<body>
+	<div class="container-scroller">
+		<div th:replace="fragments/admin-header :: admin-header" />
+		<div class="container-fluid page-body-wrapper">
+			<div th:replace="fragments/admin-header :: admin-change-background" />
+			<div th:replace="fragments/admin-header :: admin-menu" />
+			<div class="main-panel">
+				<div class="content-wrapper">
+					<span th:with="url=${#httpServletRequest.requestURI}" />
+					<span th:text="${#httpServletRequest.getContextPath()}"></span>
+
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="col-lg-12 stretch-card">
+								<div class="card">
+									<div class="card-body">
+										<div class="pt-3">
+											<div class="row">
+												<h2 class="col-lg-8 col-md-8 col-sm-8">Thông tin chi tiết sản phẩm
+												</h2>
+												<div class="col-lg-4 col-md-4 col-sm-4" style="text-align: right;">
+													<a class="btn btn-success me-2" th:href="@{/admin/product/add}">Thêm
+														mới sản phẩm</a>
+													<a class="btn btn-success me-2" th:href="@{/admin/product}">Danh
+														sách sản phẩm</a>
+													<a class="btn btn-success me-2" th:href="@{/admin}">Trang quản
+														trị</a>
+													</divv>
+												</div>
+												<div class="row">
+													<div class="col-lg-7 col-md-7 col-sm-7">
+														<table class="table table-bordered col-lg-8 col-md-8 col-sm-8"
+															th:object="${product}">
+															<tr>
+																<th style="width: 30%;">
+																	Mã sản phẩm
+																</th>
+																<td style="width: 70%;" th:text="*{productCode}"></td>
+															</tr>
+															<tr>
+																<th>
+																	Tên sản phẩm
+																</th>
+																<td style="width: 70%;" th:text="*{name}"></td>
+															</tr>
+															<tr>
+																<th>
+																	Giá bán
+																</th>
+																<td style="width: 70%;">
+																	<span th:text="*{price}"></span>
+																	<span>vnđ</span>
+																</td>
+															</tr>
+															<tr>
+																<th>
+																	Đơn vị tính giá
+																</th>
+																<td style="width: 70%;" th:text="*{priceUnit}"></td>
+															</tr>
+
+															<tr>
+																<th>
+																	Số lượng
+																</th>
+																<td style="width: 70%;" th:text="*{amount}"></td>
+															</tr>
+
+															<tr>
+																<th>
+																	Danh mục sảm phẩm
+																</th>
+																<td style="width: 70%;" th:text="*{categoryId}"></td>
+															</tr>
+
+															<tr>
+																<th>
+																	Nguyên liệu
+																</th>
+																<td style="width: 70%;" th:text="*{ingredient}"></td>
+															</tr>
+															<tr>
+																<th>
+																	Tiêu chuẩn
+																</th>
+																<td style="width: 70%;" th:text="*{standard}"></td>
+															</tr>
+															<tr>
+																<th>
+																	Thông số kỹ thuật
+																</th>
+																<td style="width: 70%;" th:text="*{specifications}">
+																</td>
+															</tr>
+															<tr>
+																<th>
+																	Kích thước
+																</th>
+																<td style="width: 70%;" th:text="*{size}">
+																	<span th:text="*{size}"> </span>
+																	<span th:text="*{sizeUnit}"> </span>
+																</td>
+															</tr>
+															<tr>
+																<th>
+																	Trọng lượng
+																</th>
+																<td style="width: 70%;">
+																	<span th:text="*{weight}"> </span>
+																	<span th:text="*{weightUnit}"> </span>
+																</td>
+															</tr>
+															<tr>
+																<th>
+																	Mỗ tả
+																</th>
+																<td style="width: 70%;">
+																	<span th:utext="*{description1}"> </span>
+																</td>
+															</tr>
+														</table>
+													</div>
+													<div class="col-lg-5 col-md-5 col-sm-5">
+														<div class="control-group" style="padding-top: 30px;">
+															<img th:src="@{${product.image}}"
+																style="width: 600px; height: 500px;" />
+														</div>
+													</div>
+
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div th:replace="fragments/admin-footer :: admin-footer" />
+				</div>
+			</div>
+		</div>
+		<div th:replace="fragments/admin-footer :: admin-footer-js" />
+</body>
+
+</html>

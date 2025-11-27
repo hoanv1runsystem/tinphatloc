@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Gạch Phú Mỹ</title>
+    <div th:replace="fragments/admin-header :: admin-header-css"/>
+</head>
+
+<body>
+<div class="container-scroller">
+    <div th:replace="fragments/admin-header :: admin-header"/>
+    <div class="container-fluid page-body-wrapper">
+        <div th:replace="fragments/admin-header :: admin-change-background"/>
+        <div th:replace="fragments/admin-header :: admin-menu"/>
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-lg-12 stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="table-responsive pt-3">
+                                        <div class="row">
+                                            <div class="col-lg-2 col-md-2 col-sm-2">Danh Sách Khách Hàng</div>
+                                            <div class="col-lg-5 col-md-5 col-sm-5">
+                                                <div th:if="${successMessage}">
+                                                    <span class="text-success" th:text=" ${successMessage}"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-3">
+                                                <form id="searchForm" class="mb-3" method="get" th:action="@{/admin/khachHang}">
+                                                    <div class="input-group">
+                                                        <input type="text" id="searchInput" name="keyword" class="form-control" th:value="${keyword}"
+                                                               placeholder="Tìm Theo Tên or Mã"
+                                                               autocomplete="off">
+                                                        <button type="submit" id="btnSearch" class="btn btn-primary btn-sm">Tìm</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="col-lg-2 col-md-2 col-sm-2 text-center">
+                                                <a th:href="@{/admin/khachHang/add}" class="btn btn-primary btn-sm">Thêm
+                                                    Mới</a>
+                                            </div>
+                                        </div>
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th style="width: 5%; text-align: center">
+                                                    STT
+                                                </th>
+                                                <th style="width: 10%; text-align: center;">
+                                                    Mã KH
+                                                </th>
+                                                <th style="width: 10%; text-align: center">
+                                                    Tên Khách Hàng
+                                                </th>
+                                                <th style="width: 10%; text-align: center;">
+                                                    Số Điện Thoại
+                                                </th>
+                                                <th style="width: 10%; text-align: center;">
+                                                    Mã Số Thuế
+                                                </th>
+                                                <th style="width: 10%; text-align: center;">
+                                                    Email
+                                                </th>
+                                                <th style="width: 10%; text-align: center;">
+                                                    Phát Sinh NO
+                                                </th>
+
+                                                <th style="width: 10%; text-align: center;">
+                                                    Phát Sinh CO
+                                                </th>
+                                                <th style="width: 10%; text-align: center;">
+                                                    Note
+                                                </th>
+                                                <th style="width: 10%; text-align: center">
+                                                    Chức Năng
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="khachHang, state : ${khachHangs.khachHangs}">
+                                                <td th:text="${state.index + 1}" class="text-center">
+                                                    1
+                                                </td>
+                                                <td th:text="${khachHang.maKhachHang}" class="text-center">
+                                                </td>
+                                                <td th:text="${khachHang.tenKhachHang}">
+                                                <td th:text="${khachHang.sdt}">
+                                                </td>
+                                                <td th:text="${khachHang.maSoThue}">
+                                                </td>
+
+                                                <td th:text="${khachHang.email}">
+                                                </td>
+                                                <td th:text="${khachHang.phatSinhNo}">
+                                                </td>
+                                                <td th:text="${khachHang.phatSinhCo}">
+                                                </td>
+                                                <td th:text="${khachHang.note}">
+                                                </td>
+                                                <td>
+                                                    <a th:href="@{/admin/khachHang/update/{id}(id=${khachHang.id})}"
+                                                       class="btn btn-primary btn-sm">Sửa</a>
+                                                    <a th:href="@{/admin/khachHang/delete/{id}(id=${khachHang.id})}"
+                                                       class="btn btn-danger btn-sm" th:onclick="return onClickDelete(this)">Xóa </a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+
+                                    <li class="page-item" th:classappend="${khachHangs.page == 0} ? 'disabled'">
+                                        <a class="page-link"
+                                           th:href="@{/admin/khachHang(page=${khachHangs.page - 1}, keyword=${keyword})}">Previous</a>
+                                    </li>
+
+                                    <li class="page-item" th:each="i : ${#numbers.sequence(0, khachHangs.totalPages - 1)}"
+                                        th:classappend="${i == khachHangs.page} ? 'active'">
+                                        <a class="page-link"
+                                           th:text="${i + 1}"
+                                           th:href="@{/admin/khachHang(page=${i}, keyword=${keyword})}"></a>
+                                    </li>
+
+                                    <li class="page-item" th:classappend="${khachHangs.page + 1 >= khachHangs.totalPages} ? 'disabled'">
+                                        <a class="page-link"
+                                           th:href="@{/admin/khachHang(page=${khachHangs.page + 1}, keyword=${keyword})}">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:replace="fragments/admin-footer :: admin-footer"/>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/admin-footer :: admin-footer-js"/>
+
+
+</script>
+</body>
+
+</html>

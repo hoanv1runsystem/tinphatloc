@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<div th:replace="fragments/header :: header-css" />
+</head>
+
+<body>
+	<div th:replace="fragments/header :: header" />
+	<div class="container-fluid">
+		<div class="row px-xl-5">
+			<div class="col-12">
+				<nav class="breadcrumb bg-light mb-30">
+					<a class="breadcrumb-item text-dark" th:href="@{/home}">Trang chủ</a>
+					<span class="breadcrumb-item">Sản phẩm</span>
+				</nav>
+			</div>
+		</div>
+	</div>
+	<h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Sản phẩm
+		</span></h2>
+	<div class="row px-xl-5">
+		<div class="col-lg-3 col-md-4 col-sm-6 pb-1" th:each="product : ${products}">
+			<div class="product-item bg-light mb-4">
+				<div class="product-img position-relative overflow-hidden">
+					<a th:href="@{/product/{id}/{name}(id=${product.id}, name=${product.urlFriendy})}">
+						<img class="img-fluid w-100" th:src="${product.image}" alt="" style="height: 326px" />
+					</a>
+				</div>
+				<div class="text-center py-4">
+					<a class="h6 text-decoration-none text-truncate"
+						th:href="@{/product/{id}/{name}(id=${product.id}, name=${product.urlFriendy})}">
+						<span th:text="${product.name}"></span>
+					</a>
+					<div class="d-flex align-items-center justify-content-center mt-2">
+						<h6>
+							<span>Mã sản phẩm: </span> <span th:text="${product.productCode}"></span>
+						</h6>
+					</div>
+					<div class="d-flex align-items-center justify-content-center mt-2">
+						<h6 th:if="${product.price != null}">
+							<span class="text-danger">Giá bán: </span> <span class="text-danger"
+								th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}">5.000</span>
+							<span class="text-danger" th:text="${product.priceUnit}">vnđ/Viên</span>
+						</h6>
+						<h6 th:if="${product.price == null}">
+							<span class="text-danger">Giá bán: Liên hệ</span>
+							</h5>
+					</div>
+					<div class="d-flex align-items-center justify-content-center mb-1">
+						<button class="btn btn-primary px-3">
+							<span class="black-color">Liên hệ mua hàng: </span>
+							<a class="black-color" th:text="${session.contactSession.phone}"
+								th:href="${'tel:'+ session.contactSession.phone}"> 0978 414 433</a>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	<div th:replace="fragments/footer :: footer" />
+	<div th:replace="fragments/footer :: footer-js" />
+</body>
+
+</html>
