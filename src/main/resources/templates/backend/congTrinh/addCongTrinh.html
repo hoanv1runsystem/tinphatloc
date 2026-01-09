@@ -39,11 +39,13 @@
                                         <label for="exampleInputUsername1">Mã Công Trình</label>
                                         <input type="text" id="maCongTrinh" class="form-control" th:field="*{maCongTrinh}"
                                                required placeholder="Nhập Mã"
+                                               maxlength="25"
                                                title="Mã không được trống hoặc chứa kí tự đặc biệt">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputUsername1">Tên Công trinh</label>
                                         <input type="text" id="tenCongTrinh" class="form-control" th:field="*{tenCongTrinh}"
+                                               maxlength="255"
                                                required placeholder="Nhập Tên Công Trình"
                                                title="Tên không được trống hoặc chứa kí tự đặc biệt">
                                     </div>
@@ -58,22 +60,21 @@
                                     <div class="form-group">
                                         <label>Mã TK</label>
                                         <input type="text" id="maTk" class="form-control" th:field="*{maTk}"
+                                               maxlength="25"
                                                placeholder="Nhập mã TK">
                                     </div>
                                     <div class="form-group">
                                         <label>Loại Công Trình</label>
                                         <input type="text" id="loaiCongTrinh" class="form-control" th:field="*{loaiCongTrinh}"
+                                               maxlength="25"
                                                placeholder="Nhập Loại Công Trình">
                                     </div>
 
                                     <div class="form-group">
                                         <label>Chọn Tình Trạng</label>
                                         <input type="text" id="tinhTrang" class="form-control" th:field="*{tinhTrang}"
+                                               maxlength="25"
                                                placeholder="Nhập Tình Trang">
-                                        <!-- <select th:field="*{tinhTrang}" id="tinhTrang" class="form-select">
-                                             <option th:value="0" th:text="Đang Thi Công"></option>
-                                             <option th:value="1" th:text="Hoàn Thành"></option>
-                                        </select>-->
                                     </div>
 
 
@@ -82,17 +83,16 @@
                                         <input type="text" class="form-control formateDate"
                                                name="ngayBatDau"
                                                id="ngayBatDau"
+                                               maxlength="25"
                                                th:field="*{ngayBatDau}"
                                                th:value="${#temporals.format(congTrinh.ngayBatDau, 'dd/MM/yyyy')}"
                                                placeholder="dd/mm/yyyy" />
-
-                                        <!--<input type="date" id="ngayBatDau" class="form-control" th:field="*{ngayBatDau}"
-                                               placeholder="Nhập Ngày Bắt Đầu (dd/MM/yyyy)">-->
                                     </div>
                                     <div class="form-group">
                                         <label>Ngày Kết Thúc</label>
                                         <input type="text" class="form-control formateDate"
                                                name="ngayKetThuc"
+                                               maxlength="25"
                                                id="ngayKetThuc"
                                                th:field="*{ngayKetThuc}"
                                                th:value="${#temporals.format(congTrinh.ngayKetThuc, 'dd/MM/yyyy')}"
@@ -102,6 +102,7 @@
                                         <label>Hạn Thanh Toán</label>
                                         <input type="text" class="form-control formateDate"
                                                name="hanThanhToan"
+                                               maxlength="25"
                                                id="hanThanhToan"
                                                th:field="*{hanThanhToan}"
                                                th:value="${#temporals.format(congTrinh.hanThanhToan, 'dd/MM/yyyy')}"
@@ -110,11 +111,13 @@
                                     <div class="form-group">
                                         <label>Dự Toán</label>
                                         <input type="text" id="duToan" class="form-control" th:field="*{duToan}"
+                                               maxlength="25"
                                                placeholder="Nhập Dự Toán">
                                     </div>
                                     <div class="form-group">
                                         <label>Địa chỉ</label>
                                         <input type="text" id="diaChi" class="form-control" th:field="*{diaChi}"
+                                               maxlength="255"
                                                placeholder="Nhập địa chỉ">
                                     </div>
                                     <div class="form-group">
@@ -128,6 +131,7 @@
                                     <div class="form-group">
                                         <label>Note</label>
                                         <input type="text" id="note" class="form-control" th:field="*{note}"
+                                               maxlength="255"
                                                placeholder="Nhập note">
                                     </div>
 

@@ -64,7 +64,7 @@ public class CapNhienLieuController {
 
         model.addAttribute("capNhienLieu", objectDto);
 
-        return "/backend/capNhienLieu/addcapNhienLieu";
+        return "/backend/capNhienLieu/addCapNhienLieu";
 
     }
 
@@ -108,7 +108,7 @@ public class CapNhienLieuController {
             redirect.addFlashAttribute(Message.SUCCESS, Message.DELETE_SUCCESS);
             return "redirect:/admin/capNhienLieu/";
         } catch (Exception e) {
-            return "/backend/capNhienLieu/editcapNhienLieu";
+            return "/backend/capNhienLieu/editCapNhienLieu";
         }
     }
 }

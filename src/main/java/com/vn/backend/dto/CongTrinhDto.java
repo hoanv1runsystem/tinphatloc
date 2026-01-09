@@ -33,7 +33,7 @@ public class CongTrinhDto {
     /**
      * Tình trạng đang thi công = 0, hoàn thánh = 1
      */
-    private Integer tinhTrang;
+    private String tinhTrang;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate ngayBatDau;

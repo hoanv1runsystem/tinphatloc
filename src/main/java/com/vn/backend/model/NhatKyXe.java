@@ -66,6 +66,9 @@ public class NhatKyXe {
     @Column(name = "vat")
     private Integer vat;
 
+    @Column(name = "ma_dvt")
+    private String maDvt;
+
     @Column(name = "ca_sang_start")
     private LocalDateTime caSangStart;
 

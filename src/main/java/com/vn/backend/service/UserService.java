@@ -15,7 +15,7 @@ public interface UserService {
 
 	UserResponse addVaildate(UserDto dto) throws Exception;
 
-	UserDto update(UserDto userDto) throws Exception;
+	UserResponse update(UserDto userDto) throws Exception;
 
 	boolean delete(Long id) throws Exception;
 	

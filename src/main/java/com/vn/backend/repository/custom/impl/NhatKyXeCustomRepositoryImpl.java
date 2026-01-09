@@ -22,7 +22,6 @@ public class NhatKyXeCustomRepositoryImpl implements NhatKyXeCustomRepository {
     private EntityManager entityManager;
 
     @Override
-
     public Page<NhatKyXeDto> search(String keyword, Integer deleteFlag, Pageable pageable) {
         StringBuilder sql = new StringBuilder("");
         StringBuilder countSql = new StringBuilder("");

@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Gạch Phú Mỹ</title>
+    <title>Tín Phát Lộc</title>
     <div th:replace="fragments/admin-header :: admin-header-css"/>
 </head>
 
@@ -35,6 +35,7 @@
                                                     <div class="input-group">
                                                         <input type="text" id="searchInput" name="keyword" class="form-control" th:value="${keyword}"
                                                                placeholder="Tìm Theo Tên or Mã"
+                                                               maxlength="55"
                                                                autocomplete="off">
                                                         <button type="submit" id="btnSearch" class="btn btn-primary btn-sm">Tìm</button>
                                                     </div>

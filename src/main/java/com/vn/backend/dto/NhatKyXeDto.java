@@ -34,6 +34,7 @@ public class NhatKyXeDto {
      */
     private BigDecimal donGia;
     private Integer vat;
+    private String maDvt;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime caSangStart;
@@ -68,4 +69,5 @@ public class NhatKyXeDto {
     private List<CongTrinhDto> congTrinhs = new ArrayList<>();
 
     private List<KhachHangDto> khachHangs = new ArrayList<>();
+    private List<DvtDto> dvts = new ArrayList<>();
 }

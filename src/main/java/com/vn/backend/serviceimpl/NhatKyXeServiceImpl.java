@@ -58,63 +58,14 @@ public class NhatKyXeServiceImpl implements NhatKyXeService {
     }
 
     @Override
-    public NhatKyXeResponse addValidate(NhatKyXeDto dto) {
-        //		CustomerResponse result = new CustomerResponse();
-        //		List<Category> categories = customerRepository.findByNameAndDeleteFlag(categoryDto.getName(),
-        //				Constant.DELETE_FLAG_ACTIVE);
-        //		if (categories != null && categories.size() > 0) {
-        //			result.setStatus(Constant.DUPLICATE);
-        //			result.setMessage(Message.NAME_CATEGORY_DUPLICATE);
-        //			result.setCategoryDto(categoryDto);
-        //			return result;
-        //		}
-        //
-        //		Category category = new Category();
-        //		BeanUtils.copyProperties(categoryDto, category);
-        //		Category result = categoryRepository.save(category);
-        //		BeanUtils.copyProperties(result, categoryDto);
-        //
-        //		categoryResponse.setStatus(Constant.STATUS_SUCCSESS);
-        //		categoryResponse.setMessage(Message.ADD_SUCCESS);
-        //		categoryResponse.setCategoryDto(categoryDto);
-        //
-        //		return categoryResponse;
-
-        return null;
-    }
-
-    @Override
     public NhatKyXeDto update(NhatKyXeDto dto) throws Exception {
         Optional<NhatKyXe> option = nhatKyXeRepository.findById(dto.getId());
 
         if (option.isPresent()) {
             NhatKyXe object = option.get();
-            /*if (StringUtils.hasText(dto.getMaNhanVien())) {
-                object.setMaNhanVien(dto.getMaNhanVien());
-            }
-
-            if (StringUtils.hasText(dto.getTenNhanVien())) {
-                object.setTenNhanVien(dto.getTenNhanVien());
-            }
-
-            if (StringUtils.hasText(dto.getEmail())) {
-                object.setEmail(dto.getEmail());
-            }
-
-            if (StringUtils.hasText(dto.getSdt())) {
-                object.setSdt(dto.getSdt());
-            }
-
-            if (StringUtils.hasText(dto.getDiaChi())) {
-                object.setDiaChi(dto.getDiaChi());
-            }
-
-            if (StringUtils.hasText(dto.getNote())) {
-                object.setNote(dto.getNote());
-            }*/
-
+            BeanUtils.copyProperties(dto, object);
             NhatKyXe result = nhatKyXeRepository.save(object);
-            BeanUtils.copyProperties(dto, result);
+            BeanUtils.copyProperties(result, dto);
             return dto;
         } else {
             throw new Exception(Message.UPDATE_FAILURE);

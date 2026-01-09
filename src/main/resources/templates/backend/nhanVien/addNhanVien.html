@@ -33,6 +33,7 @@
 											<label for="exampleInputUsername1">Mã Nhân Viên</label>
 											<input type="text" id="maNhanVien" class="form-control" th:field="*{maNhanVien}"
 												   required placeholder="Nhập Mã Nhân Viên"
+												   maxlength="25"
 												   title="Tên không được trống hoặc chứa kí tự đặc biệt">
 										</div>
 										<div class="form-group">
@@ -45,27 +46,32 @@
 											<label for="exampleInputUsername1">Số điện thoại</label>
 											<input type="text" id="sdt" class="form-control" th:field="*{sdt}"
 												pattern="[0-9]{0,10}" required placeholder="Nhập số điện thoại"
+												   maxlength="25"
 												title="Số điện thoại không được trống">
 										</div>
 										<div class="form-group">
 											<label>Chức Vụ</label>
 											<input type="text" id="chuVu" class="form-control" th:field="*{chucVu}"
+												   maxlength="255"
 												   placeholder="Nhập Chức Vụ">
 										</div>
 										<div class="form-group">
 											<label>Địa chỉ</label>
 											<input type="text" id="diaChi" class="form-control" th:field="*{diaChi}"
+												   maxlength="255"
 												   placeholder="Nhập địa chỉ">
 										</div>
 										<div class="form-group">
 											<label>Email</label>
 											<input type="email" id="email" class="form-control" th:field="*{email}"
+												   maxlength="100"
 												placeholder="Nhập email">
 										</div>
 
 										<div class="form-group">
 											<label>Note</label>
 											<input type="text" id="note" class="form-control" th:field="*{note}"
+												   maxlength="255"
 												   placeholder="Nhập note">
 										</div>
 										<button type="submit" class="btn btn-success me-2">Lưu</button>

@@ -11,8 +11,6 @@ public interface NhatKyXeService {
 
     NhatKyXeDto add(NhatKyXeDto dto);
 
-    NhatKyXeResponse addValidate(NhatKyXeDto dto);
-
     NhatKyXeDto update(NhatKyXeDto dto) throws Exception;
 
     boolean delete(Long id) throws Exception;

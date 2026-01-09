@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Tín Phát Lộc</title>
+    <div th:replace="fragments/admin-header :: admin-header-css"/>
+</head>
+
+<body>
+<div class="container-scroller">
+    <div th:replace="fragments/admin-header :: admin-header"/>
+    <div class="container-fluid page-body-wrapper">
+        <div th:replace="fragments/admin-header :: admin-change-background"/>
+        <div th:replace="fragments/admin-header :: admin-menu"/>
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-lg-12 stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="table-responsive pt-3">
+                                        <form id="exportForm" class="forms-sample" th:object="${export}"
+                                              th:action="@{/admin/export/nhatKyXe}" method="post">
+                                            <div class="row">
+
+                                                <h4 class="col-lg-2 col-md-2 col-sm-2">
+                                                    <div class="col-auto">
+                                                        <label for="maThietBi" class="col-form-label">Thiết bị</label>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <select th:field="*{maThietBi}" id="maThietBi" class="form-select">
+                                                            <option value="">Tất cả</option>
+                                                            <option th:each="obj : ${export.thietBis}" th:value="${obj.maThietBi}"
+                                                                    th:text="${obj.tenThietBi}"></option>
+                                                        </select>
+                                                    </div>
+                                                </h4>
+                                                <h4 class="col-lg-2 col-md-2 col-sm-2">
+                                                    <div class="col-auto">
+                                                        <label for="maThietBi" class="col-form-label">Khách Hàng</label>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <select th:field="*{maKhachHang}" id="maKhachHang" class="form-select">
+                                                            <option value="">Tất cả</option>
+                                                            <option th:each="obj : ${export.khachHangs}" th:value="${obj.maKhachHang}"
+                                                                    th:text="${obj.tenKhachHang}"></option>
+                                                        </select>
+                                                    </div>
+                                                </h4>
+                                                <h4 class="col-lg-2 col-md-2 col-sm-2">
+                                                    <div class="col-auto">
+                                                        <label for="maCongTrinh" class="col-form-label">Công Trình</label>
+                                                    </div>
+                                                    <select th:field="*{maCongTrinh}" id="maCongTrinh" class="form-select">
+                                                        <option value="">Tất cả</option>
+                                                        <option th:each="obj : ${export.congTrinhs}" th:value="${obj.maCongTrinh}"
+                                                                th:text="${obj.tenCongTrinh}"></option>
+                                                    </select>
+                                                </h4>
+                                                <h4 class="col-lg-2 col-md-2 col-sm-2">
+                                                    <div class="col-auto">
+                                                        <label for="maNhanVien" class="col-form-label">Nhân Viên</label>
+                                                    </div>
+                                                    <select th:field="*{maNhanVien}" id="maNhanVien" class="form-select">
+                                                        <option value="">Tất cả</option>
+                                                        <option th:each="obj : ${export.nhanViens}" th:value="${obj.maNhanVien}"
+                                                                th:text="${obj.tenNhanVien}"></option>
+                                                    </select>
+                                                </h4>
+                                                <h4 class="col-lg-2 col-md-2 col-sm-2">
+                                                    <div class="col-auto">
+                                                        <label for="ngayChungTuFrom" class="col-form-label">Từ Ngày</label>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <input type="text" id="ngayChungTuFrom" class="form-control formateDate"
+                                                               th:field="*{ngayChungTuFrom}"
+                                                               placeholder="Nhập Ngày Chứng Từ"
+                                                               title="Ngày Chứng Từ không được để trống">
+                                                    </div>
+                                                </h4>
+                                                <h4 class="col-lg-2 col-md-2 col-sm-2">
+                                                    <div class="col-auto">
+                                                        <label for="ngayChungTuTo" class="col-form-label">Đến Ngày</label>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <input type="text" id="ngayChungTuTo" class="form-control formateDate"
+                                                               th:field="*{ngayChungTuTo}"
+                                                               placeholder="Nhập Ngày Chứng Từ"
+                                                               title="Ngày Chứng Từ không được để trống">
+                                                    </div>
+                                                </h4>
+                                            </div>
+                                            <div class="row">
+                                                <div class="d-flex justify-content-start">
+                                                    <button type="button" id="btnViewExport" class="btn btn-success me-2 btn-sm">Xem Dữ Liệu Nhật Ký Xe</button>
+                                                    <button type="button" id="btnExportMutiCondition" class="btn btn-success btn-sm">Báo cáo Chi
+                                                        tiết
+                                                    </button>
+                                                    <button type="button" id="btnExportCondition" class="btn btn-success btn-sm">Báo Cáo Theo Từng
+                                                        Điều Kiện Nhập
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <br/>
+                                        <table class="table table-bordered table-striped" th:if="${exportDatas.exports != null}">
+                                            <thead>
+                                            <tr class="success">
+                                                <th style="width: 10%; text-align: center;">
+                                                    Ngày Chứng Từ
+                                                </th>
+                                                <th style="width: 10%; text-align: center">
+                                                    Số Phiếu
+                                                </th>
+                                                <th style="width: 10%; text-align: center">
+                                                    Diễn Giải
+                                                </th>
+                                                <th style="width: 10%; text-align: center;">
+                                                    Tên Thiết Bị
+                                                </th>
+                                                <th style="width: 10%; text-align: center;">
+                                                    Số Dầu
+                                                </th>
+                                                <th style="width: 10%; text-align: center;">
+                                                    ĐVT
+                                                </th>
+                                                <th style="width: 10%; text-align: center;">
+                                                    Số Chuyến
+                                                </th>
+                                                <th style="width: 10%; text-align: center;">
+                                                    Số KM
+                                                </th>
+                                                <th style="width: 10%; text-align: center;">
+                                                    Số Tấn
+                                                </th>
+                                                <th style="width: 10%; text-align: center;">
+                                                    Ca Sáng <br> Giờ Bắt Đầu
+                                                </th>
+                                                <th style="width: 10%; text-align: center;">
+                                                    Ca Sáng <br> Giờ Kết Thúc
+                                                </th>
+                                                <th style="width: 10%; text-align: center;">
+                                                    Ca Chiều <br> Giờ Bắt Đầu
+                                                </th>
+                                                <th style="width: 10%; text-align: center;">
+                                                    Ca Chiều <br> Giờ Kết Thúc
+                                                </th>
+                                                <th style="width: 10%; text-align: center;">
+                                                    Ca Tối <br> Giờ Bắt Đầu
+                                                </th>
+                                                <th style="width: 10%; text-align: center;">
+                                                    Ca Tối <br> Giờ Kết Thúc
+                                                </th>
+                                                <th style="width: 10%; text-align: center;">
+                                                    Số Giờ
+                                                </th>
+                                                <th style="width: 10%; text-align: center;">
+                                                    Số Ca
+                                                </th>
+                                                <th style="width: 10%; text-align: center;">
+                                                    Công Trình
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr class="table-info font-weight-bold">
+                                                <td  colspan="6" style="text-align: center;">
+                                                    Tổng
+                                                </td>
+                                                <!--<td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td >
+                                                </td>
+                                                <td>
+                                                </td>
+                                                </td>-->
+                                                <td th:text="${exportDatas.tongSoChuyenDisp}">
+                                                </td>
+                                                <td th:text="${exportDatas.tongSoKmDisp}">
+                                                </td>
+                                                <td th:text="${exportDatas.tongSoTanDisp}">
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td th:text="${exportDatas.tongSoGioDisp}">
+                                                </td>
+                                                <td th:text="${exportDatas.tongSoCaDisp}">
+                                                </td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            <tr th:each="export, state : ${exportDatas.exports}">
+                                                <td th:text="${export.ngayChungTuDisp}" class="text-center">
+                                                </td>
+                                                <td th:text="${export.soPhieu}">
+                                                <td th:utext="${export.dienGiai}">
+                                                </td>
+                                                <td th:utext="${export.tenThietBi}">
+                                                </td>
+                                                <td th:text="${export.soPhieu}">
+                                                </td>
+                                                <td th:text="${export.dvt}">
+                                                </td>
+                                                </td>
+                                                <td th:text="${export.soChuyenDisp}">
+                                                </td>
+                                                <td th:text="${export.soKmDisp}">
+                                                </td>
+                                                <td th:text="${export.soTanDisp}">
+                                                </td>
+                                                <td th:text="${export.caSangStartDisp}">
+                                                </td>
+                                                <td th:text="${export.caSangEndDisp}">
+                                                </td>
+                                                <td th:text="${export.caChieuStartDisp}">
+                                                </td>
+                                                <td th:text="${export.caChieuEndDisp}">
+                                                </td>
+                                                <td th:text="${export.caToiStartDisp}">
+                                                </td>
+                                                <td th:text="${export.caToiEndDisp}">
+                                                </td>
+                                                <td th:text="${export.tongGioDisp}">
+                                                </td>
+                                                <td th:text="${export.soCaDisp}">
+                                                </td>
+                                                <td th:text="${export.tenCongTrinh}">
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:replace="fragments/admin-footer :: admin-footer"/>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/admin-footer :: admin-footer-js"/>
+<script>
+    $(document).ready(function () {
+        $('#btnViewExport').on('click', function () {
+        // Đổi action của form
+        $('#exportForm').attr('action', '/admin/export/nhatKyXe');
+
+        // Submit form sau khi đổi action
+        $('#exportForm').submit();
+      });
+
+      // Khi click nút Export Excel
+      $('#btnExportMutiCondition').on('click', function () {
+        // Đổi action của form
+        $('#exportForm').attr('action', '/admin/export/nhatKyXe/muti-condition');
+
+        // Submit form sau khi đổi action
+        $('#exportForm').submit();
+      });
+
+      $('#btnExportCondition').on('click', function () {
+        // Đổi action của form
+        $('#exportForm').attr('action', '/admin/export/nhatKyXe/condition');
+
+        // Submit form sau khi đổi action
+        $('#exportForm').submit();
+      });
+
+
+
+
+
+    });
+</script>
+
+</body>
+
+</html>

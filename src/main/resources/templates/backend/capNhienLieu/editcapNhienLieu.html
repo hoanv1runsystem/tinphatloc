@@ -35,6 +35,7 @@
                                         <input type="text" class="form-control formateDate"
                                                name="ngayCap" required
                                                id="ngayCap"
+                                               maxlength="25"
                                                th:field="*{ngayCap}"
                                                th:value="${#temporals.format(capNhienLieu.ngayCap, 'dd/MM/yyyy')}"
                                                placeholder="dd/mm/yyyy"/>
@@ -57,11 +58,13 @@
                                     <div class="form-group">
                                         <label>Đồng Hồ Trước Cấp</label>
                                         <input type="text" id="dongHoTruocCap" class="form-control" th:field="*{dongHoTruocCap}"
+                                               maxlength="15"
                                                placeholder="Nhập Số Đồng Hồ Thiết Bị">
                                     </div>
                                     <div class="form-group">
                                         <label>Đồng Hồ Sau Cấp</label>
                                         <input type="text" id="dongHoSauCap" class="form-control" th:field="*{dongHoSauCap}"
+                                               maxlength="15"
                                                placeholder="Nhập Đồng Hồ Sau Cấp">
                                     </div>
 
@@ -69,6 +72,7 @@
                                         <label>Số Lượng</label>
                                         <input type="text" id="soLuong" class="form-control"
                                                th:field="*{soLuong}" readonly
+                                               maxlength="25"
                                                placeholder="Nhập Số Lượng">
                                     </div>
 
@@ -90,6 +94,7 @@
                                     <div class="form-group">
                                         <label>Note</label>
                                         <input type="text" id="note" class="form-control" th:field="*{note}"
+                                               maxlength="255"
                                                placeholder="Nhập note">
                                     </div>
 

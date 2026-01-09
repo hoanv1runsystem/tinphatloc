@@ -34,33 +34,39 @@
                                         <label>Mã </label>
                                         <input type="text" id="maThietBi" class="form-control" th:field="*{maThietBi}"
                                                required placeholder="Nhập Mã Thiết Bị"
+                                               maxlength="25"
                                                title="Mã không được trống hoặc chứa kí tự đặc biệt">
-                                    </div>Thiết Bị
+                                    </div>
                                     <div class="form-group">
-                                        <label>Tên Thiết Bị</label>
+                                        <label>Thiết Bị</label>
                                         <input type="text" id="tenThietBi" class="form-control" th:field="*{tenThietBi}"
                                                required placeholder="Nhập Tên Thiết Bị"
+                                               maxlength="255"
                                                title="Tên không được trống hoặc chứa kí tự đặc biệt">
                                     </div>
                                     <div class="form-group">
                                         <label>Đặc Tả Thiết Bị </label>
                                         <input type="text" id="moTa" class="form-control" th:field="*{moTa}"
+                                               maxlength="255"
                                                placeholder="Nhập Đặc Tả Thiết Bị"
                                                title="Đặc Tả Thiết Bị không được trống">
                                     </div>
                                     <div class="form-group">
                                         <label>ĐVT</label>
                                         <input type="text" id="dvt" class="form-control" th:field="*{dvt}"
+                                               maxlength="25"
                                                placeholder="Nhập Đơn Vị Tính Ca hoặc Giờ">
                                     </div>
                                     <div class="form-group">
                                         <label>Thời Gian/ ĐVT</label>
                                         <input type="text" id="dvtTime" class="form-control" th:field="*{dvtTime}"
+                                               maxlength="25"
                                                placeholder="Nhập Thời Gian / ĐVT">
                                     </div>
                                     <div class="form-group">
                                         <label>Đơn Giá</label>
                                         <input type="text" id="donGia" class="form-control" th:field="*{donGia}"
+                                               maxlength="15"
                                                placeholder="Nhập Đơn Giá / ĐVT">
                                     </div>
                                     <div class="form-group">
@@ -73,17 +79,20 @@
                                     <div class="form-group">
                                         <label>Định Mức Tiêu Hao</label>
                                         <input type="text" id="nhieuLieuTieuHao" class="form-control" th:field="*{nhieuLieuTieuHao}"
+                                               maxlength="15"
                                                placeholder="Nhập Định Mức Tiêu Hao">
                                     </div>
                                     <div class="form-group">
                                         <label>Lương/Ca</label>
                                         <input type="text" id="luongDkCa" class="form-control" th:field="*{luongDkCa}"
+                                               maxlength="15"
                                                placeholder="Nhập Lương Điều Khiển Máy / Ca">
                                     </div>
 
                                     <div class="form-group">
                                         <label>Note</label>
                                         <input type="text" id="note" class="form-control" th:field="*{note}"
+                                               maxlength="255"
                                                placeholder="Nhập note">
                                     </div>
                                     <button type="submit" class="btn btn-success me-2">Lưu</button>

@@ -34,12 +34,14 @@
                                         <label>Ngày Chứng Từ</label>
                                         <input type="text" id="ngayChungTu" class="form-control formateDate" th:field="*{ngayChungTu}"
                                                required placeholder="Nhập Ngày Chứng Từ"
+                                               maxlength="25"
                                                title="Ngày Chứng Từ không được để trống">
                                     </div>
                                     <div class="form-group">
                                         <label>Số Phiếu</label>
                                         <input type="text" id="soPhieu" class="form-control" th:field="*{soPhieu}"
                                                placeholder="Nhập Số Phiếu"
+                                               maxlength="25"
                                                title="Số Phiếu không được trống hoặc chứa kí tự đặc biệt">
                                     </div>
                                     <div class="form-group">
@@ -59,54 +61,80 @@
                                     <div class="form-group">
                                         <label>Diễn Giải</label>
                                         <input type="text" id="moTa" class="form-control" th:field="*{moTa}"
+                                               maxlength="255"
                                                placeholder="Nhập Diễn Giải">
                                     </div>
                                     <div class="form-group">
                                         <label>Số Chuyến</label>
                                         <input type="text" id="soChuyen" class="form-control" th:field="*{soChuyen}"
+                                               maxlength="15"
                                                placeholder="Nhập Số Chuyến">
                                     </div>
 
                                     <div class="form-group">
                                         <label>Số KM</label>
                                         <input type="text" id="soKm" class="form-control" th:field="*{soKm}"
+                                               maxlength="15"
                                                placeholder="Nhập Số KM">
                                     </div>
 
                                     <div class="form-group">
                                         <label>Số Tấn</label>
                                         <input type="text" id="soTan" class="form-control" th:field="*{soTan}"
+                                               maxlength="15"
                                                placeholder="Nhập Số Tấn">
                                     </div>
                                     <div class="form-group">
-                                        <label>Khối Lượng (Số Chuyến, Số KM, Số Tấn)</label>
+                                        <label>Số Lượng (Số Chuyến, Số KM, Số Tấn)</label>
                                         <input type="text" id="khoiLuong" class="form-control" th:field="*{khoiLuong}"
-                                               placeholder="Nhập Khối Lượng">
+                                               maxlength="15"
+                                               placeholder="Nhập Số Lượng">
                                     </div>
 
                                     <div class="form-group">
                                         <label>Đơn Giá (Chưa VAT)</label>
                                         <input type="text" id="donGia" class="form-control" th:field="*{donGia}"
+                                               maxlength="15"
+                                               required
                                                placeholder="Nhập Đơn Giá">
                                     </div>
 
                                     <div class="form-group">
                                         <label>VAT</label>
                                         <input type="text" id="vat" class="form-control" th:field="*{vat}"
+                                               maxlength="25"
                                                placeholder="Nhập VAT (Ví dụ 10% Nhập 10)">
                                     </div>
                                     <div class="form-group">
-                                        <label>Giờ Bắt Đâu Ca</label>
+                                        <label>ĐVT</label>
+                                        <select th:field="*{maDvt}" id="maDvt" class="form-select">
+                                            <option th:each="obj : ${nhatKyXe.dvts}" th:value="${obj.maDvt}"
+                                                    th:text="${obj.tenDvt}"></option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Giờ Bắt Đâu Ca Sáng</label>
                                         <input type="text" id="caSangStart" class="form-control formateDateTime" th:field="*{caSangStart}"
                                                placeholder="Nhập Giờ Bắt Đầu Ca"
+                                               maxlength="25"
                                                title="Giờ Bắt Đầu Ca không được để trống">
                                     </div>
                                     <div class="form-group">
-                                        <label>Giờ Kết Thúc Ca</label>
+                                        <label>Giờ Kết Thúc Ca Sáng</label>
                                         <input type="text" id="caSangEnd" class="form-control formateDateTime" th:field="*{caSangEnd}"
                                                placeholder="Nhập Giờ Kết Thúc Ca"
                                                title="Giờ Kết Thúc Ca không được để trống">
                                     </div>
+                                    <div class="form-group">
+                                        <label>Giờ Bắt Đâu Ca Chiều</label>
+                                        <input type="text" id="caChieuStart" class="form-control formateDateTime" th:field="*{caChieuStart}"
+                                               placeholder="Nhập Giờ Bắt Đầu Ca Chiều"
+                                               maxlength="25"
+                                               title="Giờ Bắt Đầu Ca không được để trống">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Giờ Kết Thúc Ca Chiều
 
                                     <div class="form-group">
                                         <label>Nhân Viên</label>
@@ -126,6 +154,7 @@
                                     <div class="form-group">
                                         <label>Note</label>
                                         <input type="text" id="note" class="form-control" th:field="*{note}"
+                                               maxlength="255"
                                                placeholder="Nhập Note">
                                     </div>
                                     <button type="submit" class="btn btn-success me-2">Lưu</button>

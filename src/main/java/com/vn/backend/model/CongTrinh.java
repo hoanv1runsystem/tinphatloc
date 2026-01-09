@@ -44,7 +44,7 @@ public class CongTrinh {
      * Tình trạng đang thi công = 0, hoàn thánh = 1
      */
     @Column(name = "tinh_trang")
-    private Integer tinhTrang;
+    private String tinhTrang;
 
     @Column(name = "ngay_bat_dau")
     private LocalDate ngayBatDau;

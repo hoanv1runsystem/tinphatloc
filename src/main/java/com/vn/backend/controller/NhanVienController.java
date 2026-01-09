@@ -4,7 +4,7 @@ import com.vn.backend.constants.CommonConstant;
 import com.vn.backend.dto.NhanVienDto;
 import com.vn.backend.response.NhanVienResponse;
 import com.vn.backend.service.NhanVienService;
-import com.vn.backend.service.ReportService;
+import com.vn.backend.service.ExportNhatKyXeService;
 import com.vn.utils.Constant;
 import com.vn.utils.Message;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class NhanVienController {
 
     @Autowired
-    private ReportService reportService;
+    private ExportNhatKyXeService reportService;
 
     @Autowired
     private NhanVienService nhanVienService;

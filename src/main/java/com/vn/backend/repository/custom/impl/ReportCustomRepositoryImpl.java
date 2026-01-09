@@ -1,7 +1,8 @@
 package com.vn.backend.repository.custom.impl;
 
-import com.vn.backend.dto.ReportDto;
-import com.vn.backend.dto.RequestReportDto;
+import com.vn.backend.dto.ExportChiPhiDto;
+import com.vn.backend.dto.ExportNhatKyXeDto;
+import com.vn.backend.dto.RequestExportDto;
 import com.vn.backend.repository.custom.ReportCustomRepository;
 import com.vn.utils.DateUtils;
 import com.vn.utils.FormatUtils;
@@ -17,6 +18,7 @@ import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class ReportCustomRepositoryImpl implements ReportCustomRepository {
@@ -24,7 +26,7 @@ public class ReportCustomRepositoryImpl implements ReportCustomRepository {
     private EntityManager entityManager;
 
     @Override
-    public List<ReportDto> findAll(RequestReportDto request, int deleteFlag) {
+    public List<ExportNhatKyXeDto> findAll(RequestExportDto request, Integer deleteFlag) {
         StringBuilder sql = new StringBuilder("");
 
         sql.append(" select ");
@@ -43,6 +45,8 @@ public class ReportCustomRepositoryImpl implements ReportCustomRepository {
         sql.append("                nkx.ca_toi_end,");
         sql.append("                nkx.khoi_luong,");
         sql.append("                nkx.don_gia,");
+        sql.append("                nkx.vat,");
+        sql.append("                nkx.ma_dvt,");
 
         sql.append("                nkx.ma_cong_trinh,");
         sql.append("                ct.ten_cong_trinh,");
@@ -116,10 +120,10 @@ public class ReportCustomRepositoryImpl implements ReportCustomRepository {
         }
 
         List<Object[]> rows = query.getResultList();
-        List<ReportDto> result = new ArrayList<>();
+        List<ExportNhatKyXeDto> result = new ArrayList<>();
         for (Object[] row : rows) {
             int i = 0;
-            ReportDto dto = new ReportDto();
+            ExportNhatKyXeDto dto = new ExportNhatKyXeDto();
             dto.setId(((Number) row[i]).longValue());
             dto.setNgayChungTu(row[++i] != null ? ((java.sql.Date) row[i]).toLocalDate() : null);
             dto.setSoPhieu(row[++i] != null ? (String) row[i] : "");
@@ -139,6 +143,8 @@ public class ReportCustomRepositoryImpl implements ReportCustomRepository {
 
             dto.setKhoiLuong(row[++i] != null ? (BigDecimal) row[i] : BigDecimal.ZERO);
             dto.setDonGia(row[++i] != null ? (BigDecimal) row[i] : BigDecimal.ZERO);
+            dto.setVat(row[++i] != null ? ((Number) row[i]).intValue() : 0);
+            dto.setMaDvt(row[++i] != null ? (String) row[i] : null);
 
             dto.setMaCongTrinh(row[++i] != null ? (String) row[i] : "");
             dto.setTenCongTrinh(row[++i] != null ? (String) row[i] : "");
@@ -172,7 +178,6 @@ public class ReportCustomRepositoryImpl implements ReportCustomRepository {
             BigDecimal soGioCaChieu = FormatUtils.soGioCa(dto.getCaChieuStart(), dto.getCaChieuEnd());
             BigDecimal soGioCaToi = FormatUtils.soGioCa(dto.getCaToiStart(), dto.getCaToiEnd());
 
-
             BigDecimal tongGio = soGioCaSang.add(soGioCaSang).add(soGioCaChieu).add(soGioCaToi).setScale(1, RoundingMode.DOWN);
 
             dto.setTongGio(tongGio);
@@ -184,9 +189,149 @@ public class ReportCustomRepositoryImpl implements ReportCustomRepository {
             dto.setDonGiaDisp(FormatUtils.formatBigDecimal(dto.getDonGia(), 2));
             dto.setDvtTimeDisp(FormatUtils.formatBigDecimal(dto.getDvtTime(), 2));
 
-            BigDecimal thanhTien = dto.getDonGia() == null ? BigDecimal.ZERO : dto.getDonGia().multiply(soCa);
+            BigDecimal thanhTien = BigDecimal.ZERO;
+            if (Objects.equals(dto.getMaDvt(), "CA")) {
+                thanhTien = dto.getDonGia() == null ? BigDecimal.ZERO : dto.getDonGia().multiply(soCa);
+            } else {
+                BigDecimal giaChuaVat = dto.getDonGia().multiply(dto.getKhoiLuong());
+                BigDecimal vat = giaChuaVat.multiply(BigDecimal.valueOf(dto.getVat()).divide(BigDecimal.valueOf(100)));
+                thanhTien = giaChuaVat.add(vat);
+            }
+
             dto.setThanhTien(thanhTien);
             dto.setThanhTienDisp(FormatUtils.formatBigDecimal(thanhTien, 2));
+            result.add(dto);
+
+        }
+
+        return result;
+    }
+
+    @Override
+    public List<ExportChiPhiDto> exportChiPhi(RequestExportDto request, Integer deleteFlag) {
+        StringBuilder sql = new StringBuilder("");
+
+        sql.append(" select ");
+        sql.append("                cp.id,");
+        sql.append("                cp.ngay_chung_tu,");
+        sql.append("                cp.so_phieu,");
+        sql.append("                cp.mo_ta,");
+        sql.append("                cp.ma_hang ,");
+        sql.append("                cp.ten_hang,");
+        sql.append("                cp.dvt,");
+        sql.append("                cp.so_luong,");
+        sql.append("                cp.don_gia,");
+        sql.append("                cp.ma_ncc,");
+        sql.append("                cp.ten_ncc,");
+        sql.append("                cp.note,");
+        sql.append("                cp.ma_thiet_bi,");
+        sql.append("                tb.ten_thiet_bi,");
+        sql.append("                tb.dvt as dvt_thiet_bi,");
+        sql.append("                tb.dvt_time,");
+
+        sql.append("                cp.ma_cong_trinh,");
+        sql.append("                ct.ten_cong_trinh,");
+
+        sql.append("                cp.ma_nhan_vien,");
+        sql.append("                nv.ten_nhan_vien");
+
+        sql.append(" from tbl_chi_phi cp ");
+        sql.append(" left join tbl_thiet_bi tb ");
+
+        sql.append("    on cp.ma_thiet_bi = tb.ma_thiet_bi ");
+        sql.append(" and tb.delete_flag = 0 ");
+
+        sql.append(" left join tbl_nhan_vien nv  ");
+        sql.append("    on cp.ma_nhan_vien = nv.ma_nhan_vien ");
+        sql.append("    and nv.delete_flag = 0 ");
+
+        sql.append(" left join tbl_cong_trinh ct ");
+        sql.append("    on cp.ma_cong_trinh = ct.ma_cong_trinh ");
+        sql.append("    and ct.delete_flag = 0 ");
+
+        sql.append(" where cp.delete_flag = :deleteFlag ");
+
+        if (StringUtils.hasText(request.getMaThietBi())) {
+            sql.append(" and  cp.ma_thiet_bi = :maThietBi");
+        }
+
+        if (StringUtils.hasText(request.getMaCongTrinh())) {
+            sql.append(" and  cp.ma_cong_trinh = :maCongTrinh");
+        }
+
+        if (!ObjectUtils.isEmpty(request.getNgayChungTuFrom()) && !ObjectUtils.isEmpty(request.getNgayChungTuTo())) {
+            sql.append(" and  cp.ngay_chung_tu between :ngayChungTuFrom and :ngayChungTuTo");
+        }
+
+        sql.append(" order by ");
+        sql.append("                cp.ngay_chung_tu, ");
+        sql.append("                cp.so_phieu, ");
+        sql.append("                tb.ten_thiet_bi, ");
+        sql.append("                ct.ten_cong_trinh, ");
+        sql.append("                nv.ten_nhan_vien");
+        Query query = entityManager.createNativeQuery(sql.toString());
+        query.setParameter("deleteFlag", deleteFlag);
+        if (StringUtils.hasText(request.getMaThietBi())) {
+            query.setParameter("maThietBi", request.getMaThietBi());
+        }
+
+        if (StringUtils.hasText(request.getMaCongTrinh())) {
+            query.setParameter("maCongTrinh", request.getMaCongTrinh());
+        }
+
+        if (!ObjectUtils.isEmpty(request.getNgayChungTuFrom()) && !ObjectUtils.isEmpty(request.getNgayChungTuTo())) {
+            query.setParameter("ngayChungTuFrom", request.getNgayChungTuFrom());
+            query.setParameter("ngayChungTuTo", request.getNgayChungTuTo());
+        }
+
+        List<Object[]> rows = query.getResultList();
+        List<ExportChiPhiDto> result = new ArrayList<>();
+        for (Object[] row : rows) {
+            int i = 0;
+            ExportChiPhiDto dto = new ExportChiPhiDto();
+            dto.setId(((Number) row[i]).longValue());
+            dto.setNgayChungTu(row[++i] != null ? ((java.sql.Date) row[i]).toLocalDate() : null);
+            dto.setSoPhieu(row[++i] != null ? (String) row[i] : "");
+            dto.setDienGiai(row[++i] != null ? (String) row[i] : "");
+
+            dto.setMaHang(row[++i] != null ? (String) row[i] : "");
+            dto.setTenHang(row[++i] != null ? (String) row[i] : "");
+            dto.setDvt(row[++i] != null ? (String) row[i] : "");
+            dto.setSoLuong(row[++i] != null ? (BigDecimal) row[i] : BigDecimal.ZERO);
+            dto.setDonGia(row[++i] != null ? (BigDecimal) row[i] : BigDecimal.ZERO);
+            dto.setMaNcc(row[++i] != null ? (String) row[i] : "");
+            dto.setTenNcc(row[++i] != null ? (String) row[i] : "");
+            dto.setNote(row[++i] != null ? (String) row[i] : "");
+
+            dto.setMaThietBi(row[++i] != null ? (String) row[i] : "");
+            dto.setTenThietBi(row[++i] != null ? (String) row[i] : "");
+            dto.setDvtThietBi(row[++i] != null ? (String) row[i] : "");
+            dto.setDvtTime(row[++i] != null ? (BigDecimal) row[i] : BigDecimal.ZERO);
+
+            dto.setMaCongTrinh(row[++i] != null ? (String) row[i] : "");
+            dto.setTenCongTrinh(row[++i] != null ? (String) row[i] : "");
+
+            dto.setMaNhanVien(row[++i] != null ? (String) row[i] : "");
+            dto.setTenNhanVien(row[++i] != null ? (String) row[i] : "");
+
+            dto.setThanhTien(dto.getSoLuong().multiply(dto.getDonGia()));
+
+            dto.setNgayChungTuDisp(DateUtils.formatDate(dto.getNgayChungTu(), DateUtils.DATE_DD_MM_YYYY));
+
+            if (!ObjectUtils.isEmpty(dto.getThanhTien())) {
+                dto.setThanhTienDisp(FormatUtils.formatBigDecimal(dto.getThanhTien(), 2));
+            }
+            if (!ObjectUtils.isEmpty(dto.getSoLuong())) {
+                dto.setSoLuongDisp(FormatUtils.formatBigDecimal(dto.getSoLuong(), 2));
+            }
+
+            if (!ObjectUtils.isEmpty(dto.getDonGia())) {
+                dto.setDonGiaDisp(FormatUtils.formatBigDecimal(dto.getDonGia(), 2));
+            }
+            if (!ObjectUtils.isEmpty(dto.getDvtTime())) {
+                dto.setDvtTimeDisp(FormatUtils.formatBigDecimal(dto.getDvtTime(), 2));
+            }
+
             result.add(dto);
 
         }

@@ -1,12 +1,14 @@
 package com.vn.backend.repository.custom;
 
-import com.vn.backend.dto.ReportDto;
-import com.vn.backend.dto.RequestReportDto;
+import com.vn.backend.dto.ExportChiPhiDto;
+import com.vn.backend.dto.ExportNhatKyXeDto;
+import com.vn.backend.dto.RequestExportDto;
 
 import java.util.List;
 
 public interface ReportCustomRepository {
 
-    // Page<CongTrinhDto> findAllCongTrinh(String keyword, int deleteFlag, Pageable pageable);
-    List<ReportDto> findAll(RequestReportDto dto, int deleteFlag);
+    List<ExportNhatKyXeDto> findAll(RequestExportDto dto, Integer deleteFlag);
+
+    List<ExportChiPhiDto> exportChiPhi(RequestExportDto request, Integer deleteFlag);
 }

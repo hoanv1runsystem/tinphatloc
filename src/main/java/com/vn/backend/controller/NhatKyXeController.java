@@ -4,6 +4,7 @@ import com.vn.backend.constants.CommonConstant;
 import com.vn.backend.dto.NhatKyXeDto;
 import com.vn.backend.response.NhatKyXeResponse;
 import com.vn.backend.service.CongTrinhService;
+import com.vn.backend.service.DvtService;
 import com.vn.backend.service.KhachHangService;
 import com.vn.backend.service.NhanVienService;
 import com.vn.backend.service.NhatKyXeService;
@@ -40,6 +41,9 @@ public class NhatKyXeController {
     @Autowired
     private KhachHangService khachHangService;
 
+    @Autowired
+    private DvtService dvtService;
+
     @RequestMapping("/nhatKyXe")
     public String view(@RequestParam(name = "keyword", required = false) String keyword,
         @RequestParam(name = "page", required = false, defaultValue = "0") Integer page, Model model) {
@@ -64,6 +68,7 @@ public class NhatKyXeController {
         objectDto.setNhanViens(nhanVienService.getAllData(CommonConstant.DELETE_FLAG_ENABLE));
         objectDto.setCongTrinhs(congTrinhService.getAllData(CommonConstant.DELETE_FLAG_ENABLE));
         objectDto.setKhachHangs(khachHangService.getAllData(CommonConstant.DELETE_FLAG_ENABLE));
+        objectDto.setDvts(dvtService.getAllData(CommonConstant.DELETE_FLAG_ENABLE));
         model.addAttribute("nhatKyXe", objectDto);
 
         return "/backend/nhatKyXe/addNhatKyXe";
@@ -95,6 +100,7 @@ public class NhatKyXeController {
         objectDto.setNhanViens(nhanVienService.getAllData(CommonConstant.DELETE_FLAG_ENABLE));
         objectDto.setCongTrinhs(congTrinhService.getAllData(CommonConstant.DELETE_FLAG_ENABLE));
         objectDto.setKhachHangs(khachHangService.getAllData(CommonConstant.DELETE_FLAG_ENABLE));
+        objectDto.setDvts(dvtService.getAllData(CommonConstant.DELETE_FLAG_ENABLE));
         model.addAttribute("nhatKyXe", objectDto);
         return "/backend/nhatKyXe/editNhatKyXe";
 

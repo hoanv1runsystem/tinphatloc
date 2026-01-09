@@ -68,9 +68,15 @@ public class UserController {
 	public String doUpdate(UserDto userDto, Model model, RedirectAttributes redirect) {
 
 		try {
-			userService.update(userDto);
-			redirect.addFlashAttribute("successMessage", Message.UPDATE_SUCCESS);
-			return "redirect:/admin/user/";
+			UserResponse resutl = userService.update(userDto);
+			if (Constant.STATUS_SUCCSESS != resutl.getStatus()) {
+				model.addAttribute("message", resutl.getMessage());
+				model.addAttribute("user", resutl.getUser());
+				return "/backend/user/updateUser";
+			} else {
+				redirect.addFlashAttribute("successMessage", resutl.getMessage());
+				return "redirect:/admin/user/";
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

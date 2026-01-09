@@ -1,112 +1,121 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+>
 <!--<!DOCTYPE html>-->
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Gạch Phú Mỹ</title>
-	<link th:href="@{/img/favicon.ico}" rel="icon">
-	<div th:replace="fragments/admin-header :: admin-header-css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Gạch Phú Mỹ</title>
+    <link th:href="@{/img/favicon.ico}" rel="icon">
+    <div th:replace="fragments/admin-header :: admin-header-css"/>
 </head>
 
 <body>
-	<div class="container-scroller">
-		<div th:replace="fragments/admin-header :: admin-header" />
-		<div class="container-fluid page-body-wrapper">
-			<div th:replace="fragments/admin-header :: admin-change-background" />
-			<div th:replace="fragments/admin-header :: admin-menu" />
-			<div class="main-panel">
-				<div class="content-wrapper">
-					<div class="row">
+<div class="container-scroller">
+    <div th:replace="fragments/admin-header :: admin-header"/>
+    <div class="container-fluid page-body-wrapper">
+        <div th:replace="fragments/admin-header :: admin-change-background"/>
+        <div th:replace="fragments/admin-header :: admin-menu"/>
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
 
-						<div class="col-md-6 grid-margin stretch-card">
-							<div class="card">
-								<div class="card-body">
-									<h4 class="card-title">Thêm Thiết Bị</h4>
-									<div th:if="${message}">
-										<span class="text-danger" th:text=" ${message}"></span>
-									</div>
-									<form class="forms-sample" th:object="${thietBi}"
-										th:action="@{/admin/thietBi/add}" method="post">
-										<div class="form-group">
-											<label>Mã </label>
-											<input type="text" id="maThietBi" class="form-control" th:field="*{maThietBi}"
-												   required placeholder="Nhập Mã Thiết Bị"
-												   title="Mã không được trống hoặc chứa kí tự đặc biệt">
-										</div>Thiết Bị
-										<div class="form-group">
-											<label>Tên Thiết Bị</label>
-											<input type="text" id="tenThietBi" class="form-control" th:field="*{tenThietBi}"
-												required placeholder="Nhập Tên Thiết Bị"
-												title="Tên không được trống hoặc chứa kí tự đặc biệt">
-										</div>
-										<div class="form-group">
-											<label>Đặc Tả Thiết Bị </label>
-											<input type="text" id="moTa" class="form-control" th:field="*{moTa}"
-												   placeholder="Nhập Đặc Tả Thiết Bị"
-												title="Đặc Tả Thiết Bị không được trống">
-										</div>
-										<div class="form-group">
-											<label>ĐVT</label>
-											<input type="text" id="dvt" class="form-control" th:field="*{dvt}"
-												   placeholder="Nhập Đơn Vị Tính Ca hoặc Giờ">
-										</div>
-										<div class="form-group">
-											<label>Thời Gian/ ĐVT</label>
-											<input type="text" id="dvtTime" class="form-control" th:field="*{dvtTime}"
-												placeholder="Nhập Thời Gian / ĐVT">
-										</div>
-										<div class="form-group">
-											<label>Đơn Giá</label>
-											<input type="text" id="donGia" class="form-control" th:field="*{donGia}"
-												   placeholder="Nhập Đơn Giá / ĐVT">
-										</div>
-										<div class="form-group">
-											<label>Nhiên Liệu</label>
-											<select th:field="*{maNhienLieu}" id="maNhienLieu" class="form-select">
-												<option th:each="obj : ${thietBi.nhienLieus}" th:value="${obj.maNhienLieu}"
-														th:text="${obj.tenNhienLieu}"></option>
-											</select>
-										</div>
-										<div class="form-group">
-											<label>Định Mức Tiêu Hao</label>
-											<input type="text" id="nhieuLieuTieuHao" class="form-control" th:field="*{nhieuLieuTieuHao}"
-												   placeholder="Nhập Định Mức Tiêu Hao">
-										</div>
-										<div class="form-group">
-											<label>Lương/Ca</label>
-											<input type="text" id="luongDkCa" class="form-control" th:field="*{luongDkCa}"
-												   placeholder="Nhập Lương Điều Khiển Máy / Ca">
-										</div>
+                    <div class="col-md-6 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Thêm Thiết Bị</h4>
+                                <div th:if="${message}">
+                                    <span class="text-danger" th:text=" ${message}"></span>
+                                </div>
+                                <form class="forms-sample" th:object="${thietBi}"
+                                      th:action="@{/admin/thietBi/add}" method="post">
+                                    <div class="form-group">
+                                        <label>Mã </label>
+                                        <input type="text" id="maThietBi" class="form-control" th:field="*{maThietBi}"
+                                               required placeholder="Nhập Mã Thiết Bị"
+                                               maxlength="25"
+                                               title="Mã không được trống hoặc chứa kí tự đặc biệt">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Thiết Bị</label>
+                                        <input type="text" id="tenThietBi" class="form-control" th:field="*{tenThietBi}"
+                                               required placeholder="Nhập Tên Thiết Bị"
+                                               maxlength="255"
+                                               title="Tên không được trống hoặc chứa kí tự đặc biệt">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Đặc Tả Thiết Bị </label>
+                                        <input type="text" id="moTa" class="form-control" th:field="*{moTa}"
+                                               placeholder="Nhập Đặc Tả Thiết Bị"
+                                               maxlength="255"
+                                               title="Đặc Tả Thiết Bị không được trống">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>ĐVT</label>
+                                        <input type="text" id="dvt" class="form-control" th:field="*{dvt}"
+                                               maxlength="25"
+                                               placeholder="Nhập Đơn Vị Tính Ca hoặc Giờ">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Thời Gian/ ĐVT</label>
+                                        <input type="text" id="dvtTime" class="form-control" th:field="*{dvtTime}"
+                                               maxlength="15"
+                                               placeholder="Nhập Thời Gian / ĐVT">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Đơn Giá</label>
+                                        <input type="text" id="donGia" class="form-control" th:field="*{donGia}"
+                                               maxlength="15"
+                                               placeholder="Nhập Đơn Giá / ĐVT">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Nhiên Liệu</label>
+                                        <select th:field="*{maNhienLieu}" id="maNhienLieu" class="form-select">
+                                            <option th:each="obj : ${thietBi.nhienLieus}" th:value="${obj.maNhienLieu}"
+                                                    th:text="${obj.tenNhienLieu}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Định Mức Tiêu Hao</label>
+                                        <input type="text" id="nhieuLieuTieuHao" class="form-control" th:field="*{nhieuLieuTieuHao}"
+                                               maxlength="15"
+                                               placeholder="Nhập Định Mức Tiêu Hao">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Lương/Ca</label>
+                                        <input type="text" id="luongDkCa" class="form-control" th:field="*{luongDkCa}"
+                                               maxlength="15"
+                                               placeholder="Nhập Lương Điều Khiển Máy / Ca">
+                                    </div>
 
-										<div class="form-group">
-											<label>Note</label>
-											<input type="text" id="note" class="form-control" th:field="*{note}"
-												   placeholder="Nhập note">
-										</div>
-										<button type="submit" class="btn btn-success me-2">Lưu</button>
-										<a class="btn btn-info me-2" th:href="@{/admin/thietBi}">Hủy</a>
-										<a class="btn btn-success me-2" th:href="@{/admin}">Quay lại trang quản trị</a>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div th:replace="fragments/admin-footer :: admin-footer" />
-			</div>
-		</div>
-	</div>
-	<div th:replace="fragments/admin-footer :: admin-footer-js" />
-	
-	<script>
-	$( document ).ready(function() {
-	    console.log( "ready!" );
-	    CKEDITOR.replace('message', {});
-	});
-	
-	</script>
+                                    <div class="form-group">
+                                        <label>Note</label>
+                                        <input type="text" id="note" class="form-control" th:field="*{note}"
+                                               maxlength="255"
+                                               placeholder="Nhập note">
+                                    </div>
+                                    <button type="submit" class="btn btn-success me-2">Lưu</button>
+                                    <a class="btn btn-info me-2" th:href="@{/admin/thietBi}">Hủy</a>
+                                    <a class="btn btn-success me-2" th:href="@{/admin}">Quay lại trang quản trị</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:replace="fragments/admin-footer :: admin-footer"/>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/admin-footer :: admin-footer-js"/>
+
+<script>
+    $( document ).ready(function() {
+        console.log( "ready!" );
+        CKEDITOR.replace('message', {});
+    });
+
+</script>
 </body>
 
 </html>

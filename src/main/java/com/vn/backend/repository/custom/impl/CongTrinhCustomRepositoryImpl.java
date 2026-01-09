@@ -89,7 +89,7 @@ public class CongTrinhCustomRepositoryImpl implements CongTrinhCustomRepository 
             dto.setMaKhachHang((String) row[3]);
             dto.setMaTk((String) row[4]);
             dto.setLoaiCongTrinh((String) row[5]);
-            dto.setTinhTrang(row[i++] != null ? (Integer) row[6] : null);
+            dto.setTinhTrang(row[i++] != null ? (String) row[6] : null);
 
             dto.setNgayBatDau(row[7] != null ? ((java.sql.Date) row[7]).toLocalDate() : null);
             dto.setNgayKetThuc(row[8] != null ? ((java.sql.Date) row[8]).toLocalDate() : null);
