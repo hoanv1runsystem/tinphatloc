@@ -34,7 +34,7 @@ public class ChuDauTuController {
 
         model.addAttribute("chuDauTus", response);
         model.addAttribute("keyword", keyword);
-        return "/backend/chuDauTu/viewChuDauTu";
+        return "backend/chuDauTu/viewChuDauTu";
 
     }
 

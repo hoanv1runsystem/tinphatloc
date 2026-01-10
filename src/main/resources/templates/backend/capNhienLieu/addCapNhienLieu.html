@@ -1,0 +1,139 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+>
+<!--<!DOCTYPE html>-->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Gạch Phú Mỹ</title>
+    <link th:href="@{/img/favicon.ico}" rel="icon">
+    <div th:replace="fragments/admin-header :: admin-header-css"/>
+</head>
+
+<body>
+<div class="container-scroller">
+    <div th:replace="fragments/admin-header :: admin-header"/>
+    <div class="container-fluid page-body-wrapper">
+        <div th:replace="fragments/admin-header :: admin-change-background"/>
+        <div th:replace="fragments/admin-header :: admin-menu"/>
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+
+                    <div class="col-md-6 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Thêm Cấp Nhiên Liệu</h4>
+                                <div th:if="${message}">
+                                    <span class="text-danger" th:text=" ${message}"></span>
+                                </div>
+                                <form class="forms-sample" th:object="${capNhienLieu}"
+                                      th:action="@{/admin/capNhienLieu/add}" method="post">
+                                    <div class="form-group">
+                                        <label>Ngày Cấp</label>
+                                        <input type="text" class="form-control formateDate"
+                                               name="ngayCap" required
+                                               id="ngayCap"
+                                               maxlength="25"
+                                               th:field="*{ngayCap}"
+                                               th:value="${#temporals.format(capNhienLieu.ngayCap, 'dd/MM/yyyy')}"
+                                               placeholder="dd/mm/yyyy"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Thiết Bị</label>
+                                        <select th:field="*{maThietBi}" id="maThietBi" class="form-select">
+                                            <option th:each="obj : ${capNhienLieu.thietBis}" th:value="${obj.maThietBi}"
+                                                    th:text="${obj.tenThietBi}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Công Trình</label>
+                                        <select th:field="*{maCongTrinh}" id="maCongTrinh" class="form-select">
+                                            <option th:each="obj : ${capNhienLieu.congTrinhs}" th:value="${obj.maCongTrinh}"
+                                                    th:text="${obj.tenCongTrinh}"></option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Đồng Hồ Trước Cấp</label>
+                                        <input type="text" id="dongHoTruocCap" class="form-control"
+                                               th:field="*{dongHoTruocCap}"
+                                               maxlength="15"
+                                               placeholder="Nhập Số Đồng Hồ Thiết Bị">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Đồng Hồ Sau Cấp</label>
+                                        <input type="text" id="dongHoSauCap" class="form-control"
+                                               th:field="*{dongHoSauCap}"
+                                               maxlength="15"
+                                               placeholder="Nhập Đồng Hồ Sau Cấp">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Số Lượng</label>
+                                        <input type="text" id="soLuong" class="form-control"
+                                               pattern="\d*" readonly
+                                               th:field="*{soLuong}"
+                                               maxlength="15"
+                                               placeholder="Nhập Số Lượng">
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label>Nhân Viên</label>
+                                        <select th:field="*{maNhanVien}" id="maNhanVien" class="form-select">
+                                            <option th:each="obj : ${capNhienLieu.nhanViens}" th:value="${obj.maNhanVien}"
+                                                    th:text="${obj.tenNhanVien}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Nhiên Liệu</label>
+                                        <select th:field="*{maNhienLieu}" id="maNhienLieu" class="form-select">
+                                            <option th:each="obj : ${capNhienLieu.nhienLieus}" th:value="${obj.maNhienLieu}"
+                                                    th:text="${obj.tenNhienLieu}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Note</label>
+                                        <input type="text" id="note" class="form-control" th:field="*{note}"
+                                               maxlength="255"
+                                               placeholder="Nhập note">
+                                    </div>
+
+                                    <button type="submit" class="btn btn-success me-2">Lưu</button>
+                                    <a class="btn btn-info me-2" th:href="@{/admin/capNhienLieu}">Hủy</a>
+                                    <a class="btn btn-success me-2" th:href="@{/admin}">Quay lại trang quản trị</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:replace="fragments/admin-footer :: admin-footer"/>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/admin-footer :: admin-footer-js"/>
+</body>
+<script>
+    $(document).ready(function () {
+
+        function tinhSoLuong() {
+            let truoc = parseInt($("#dongHoTruocCap").val()) || 0;
+            let sau = parseInt($("#dongHoSauCap").val()) || 0;
+
+            let soLuong = sau - truoc;
+
+            // Nếu âm thì để 0 hoặc bạn muốn xử lý sao tùy
+            if (soLuong < 0) soLuong = 0;
+
+            $("#soLuong").val(soLuong);
+        }
+
+        $("#dongHoTruocCap, #dongHoSauCap").on("keyup blur", function () {
+            tinhSoLuong();
+        });
+
+    });
+</script>
+</html>
