@@ -41,7 +41,7 @@ public class CapNhienLieuController {
     @Autowired
     private NhienLieuService nhienLieuService;
 
-    @RequestMapping("/capNhienLieu")
+    @RequestMapping(value = "/capNhienLieu", method = RequestMethod.GET)
     public String view(@RequestParam(name = "keyword", required = false) String keyword,
         @RequestParam(name = "page", required = false, defaultValue = "0") Integer page, Model model) {
 
