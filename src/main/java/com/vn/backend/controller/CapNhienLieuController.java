@@ -51,7 +51,7 @@ public class CapNhienLieuController {
         CapNhienLieuResponse contacts = capNhienLieuService.search(keyword, Constant.DELETE_FLAG_ACTIVE, paging);
         model.addAttribute("capNhienLieus", contacts);
         model.addAttribute("keyword", keyword);
-        return "/backend/capNhienLieu/viewCapNhienLieu";
+        return "backend/capNhienLieu/viewCapNhienLieu";
     }
 
     @RequestMapping(value = "/capNhienLieu/add", method = RequestMethod.GET)
